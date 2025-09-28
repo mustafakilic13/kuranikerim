@@ -1,7 +1,10 @@
 kurani kerim
 
+
 okuma : ekranı sağa sola kaydırarak önceki/sonraki sayfalar arasında geciş yapılır, üst menülerden sure, sayfa, cuz seçimi yapılır.
+
 dinleme : dinlemek istenilen ayet metnine tıklayarak seçili yapılır ve en altda besmele tuşuna tıklanılır.
+
 ara/bul : arabca harf ile kurani kerim metninde  ve latin haflerle tefsirde arama yapılır.
 kırık/kelime meal : ayet numarasına tıkladığında, ayet metninin altında kırık meal görünür.
 muhtasar tefsir : ayet numarasına tıkladığında, kırık meal metninin altında muhtasar tefsir  görünür.
