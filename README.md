@@ -39,8 +39,10 @@ nemune sayfa : https://mustafakilic.gitlab.io/kuranikerim
 
 
 kaynak 
-api : https://alquran.cloud/ 
-font: https://www.cdnfonts.com/ https://cdnjs.com/ 
+api : https://alquran.cloud/
+
+font: https://www.cdnfonts.com/ https://cdnjs.com/
+
 kelime meal, muhtasar tefsir, seidi tefsir : https://gtaf.org/
 
 وَمَا تَوْفِيقِىٓ إِلَّا بِٱللَّهِ
