@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ٱلقرءان الكريم</title>
+    <link href="https://fonts.cdnfonts.com/css/scheherazade" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-info">
+            <div class="header-item clickable" id="surah-selector">
+                <span> </span>
+                <span id="surah-name">سُورَةُ ٱلْفَاتِحَ</span>
+            </div>
+            <div class="header-item clickable" id="page-selector">
+                <span>الصفحة</span>
+                <span id="page-number">١</span>
+            </div>
+            <div class="header-item clickable" id="juz-selector">
+                <span>الجزء</span>
+                <span id="juz-number">١</span>
+            </div>
+        </div>
+    </header>
+
+    <main id="quran-text"></main>
+
+    <footer>
+        <input type="text" id="search-input" placeholder="بحث..." />
+    <button class="control-btn clickable" id="search-btn">
+        <i class="fas fa-search"></i>
+    </button>
+        <button class="control-btn" id="play-pause">
+            <span>بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</span>
+        </button>
+        <button class="control-btn" id="menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- ----------  Virtual Arabic Keyboard (only for “Yaz” mode) ---------- -->
+<div id="virtual-keyboard" class="virtual-keyboard hidden">
+    <!-- keys are created dynamically in script.js -->
+</div>
+
+    </footer>
+
+    <!-- Modallar -->
+    <div id="modal-container">
+        <div class="modal" id="juz-modal">
+            <div class="modal-content">
+                <h2>اختر الجزء</h2>
+                <ul id="juz-list"></ul>
+            </div>
+        </div>
+
+        <div class="modal" id="page-modal">
+            <div class="modal-content">
+                <h2>اختر الصفحة</h2>
+                <ul id="page-list"></ul>
+            </div>
+        </div>
+
+        <div class="modal" id="surah-modal">
+            <div class="modal-content">
+                <h2>اختر السورة</h2>
+                <ul id="surah-list"></ul>
+            </div>
+        </div>
+        
+        <div id="search-results-modal" class="modal">
+    <div class="modal-content">
+        <h2>Arama Sonucu</h2>
+        <div id="search-count" style="text-align: center;"></div>
+        <ul id="search-results-list"></ul>
+    </div>
+</div>
+
+<div class="modal" id="info-modal">
+    <div class="modal-content">
+        <h2>Ezber</h2>
+
+    <div class="checkbox-group">
+        <label>
+            <input type="radio" name="playType" value="repeat" checked>
+            Dinle
+        </label>
+        <label>
+            <input type="radio" name="playType" value="sequential">
+            Oku
+        </label>
+        <label>
+            <input type="radio" name="playType" value="write">
+            Yaz
+        </label>
+    </div>
+    <div id="repeatOptions">
+        <label for="reader">Okuyucu Seçin:</label>
+        <select id="reader">
+            <option value="AbdussamedMucevved">Abdussamed (Mucevved)</option>
+            <option value="AbdussamedMurattal">Abdussamed (Murattal)</option>
+            <option  value="HusariMucevved" selected>Husari (Mucevved)</option>
+            <option value="HusariMurattal">Husari (Murattal)</option>
+        </select>
+        <label for="surah">Sure Seçin:</label>
+        <select id="surah"></select>
+        <label for="startAyah">Başlangıç Ayeti Seçin:</label>
+        <select id="startAyah"></select>
+        <label for="endAyah">Bitiş Ayeti Seçin:</label>
+        <select id="endAyah"></select>
+        <label for="repeatCount">Ayet Tekrar Sayısı Girin:</label>
+        <input type="number" id="repeatCount" min="1">
+        <label for="totalRepeats">Baştan Sona Tekrar Sayısı Girin:</label>
+        <input type="number" id="totalRepeats" min="0">
+    </div>
+
+    <div id="sequentialOptions" class="hidden">
+        <label for="reader">Okuyucu Seçin:</label>
+        <select id="readerSequential">
+            <option value="AbdussamedMucevved">Abdussamed (Mucevved)</option>
+            <option value="AbdussamedMurattal">Abdussamed (Murattal)</option>
+            <option value="HusariMucevved" selected>Husari (Mucevved)</option>
+            <option value="HusariMurattal">Husari (Murattal)</option>
+        </select>
+        <label for="startSurah">Başlangıç Sure Seçin:</label>
+        <select id="startSurah"></select>
+        <label for="startAyah">Başlangıç Ayeti Seçin:</label>
+        <select id="startAyahSequential"></select>
+        <label for="endSurah">Bitiş Sure Seçin:</label>
+        <select id="endSurah"></select>
+        <label for="endAyah">Bitiş Ayeti Seçin:</label>
+        <select id="endAyahSequential"></select>
+    </div>
+    
+    <div id="writeOptions" class="hidden"> <!-- Değişen kısım: listenOptions -> writeOptions -->
+        <label for="readerWrite">Okuyucu Seçin:</label> <!-- Değişen kısım: readerListen -> readerWrite -->
+        <select id="readerWrite"> <!-- Değişen kısım: readerListen -> readerWrite -->
+            <option value="AbdussamedMucevved">Abdussamed (Mucevved)</option>
+            <option value="AbdussamedMurattal">Abdussamed (Murattal)</option>
+            <option value="HusariMucevved" selected>Husari (Mucevved)</option>
+            <option value="HusariMurattal">Husari (Murattal)</option>
+        </select>
+        <label for="surahWrite">Sure Seçin:</label> <!-- Değişen kısım: surahListen -> surahWrite -->
+        <select id="surahWrite"></select> <!-- Değişen kısım: surahListen -> surahWrite -->
+        <label for="startAyahWrite">Başlangıç Ayeti Seçin:</label> <!-- Değişen kısım: startAyahListen -> startAyahWrite -->
+        <select id="startAyahWrite"></select> <!-- Değişen kısım: startAyahListen -> startAyahWrite -->
+        <label for="endAyahWrite">Bitiş Ayeti Seçin:</label> <!-- Değişen kısım: endAyahListen -> endAyahWrite -->
+        <select id="endAyahWrite"></select> <!-- Değişen kısım: endAyahListen -> endAyahWrite -->
+    </div>
+    
+        <button id="playButton">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</button>
+    <div id="message"></div>
+    <div id="completionMessage" class="hidden">Kurani Kerim Okuma Bitti</div>
+    <div id="ayahInfo" class="hidden"></div> <!-- Ayet bilgileri için yeni div -->
+    	
+    	<div class="gitlab-link"> <a href="https://gitlab.com/mustafakilic/kuranikerim" target="_blank" rel="noopener noreferrer"> Kaynak Kodu - GitLab </a></div>
+
+  </div>
+ </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

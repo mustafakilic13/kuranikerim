@@ -1,0 +1,577 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Scheherazade', serif;
+    background-color: #f5f5f5;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(145deg, #2c5364, #203a43);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header-info {
+    display: flex;
+    gap: 2.1rem;
+    align-items: center;
+}
+
+.header-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1.3rem;
+    margin: 23px;
+}
+
+main {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 3rem;
+    line-height: 11rem;
+    font-size: 2.3rem;
+    text-align: justify;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(145deg, #2c5364, #203a43);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    padding: 0.7rem;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.control-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.control-btn i {
+    font-size: 1.5rem;
+}
+
+.clickable {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clickable:hover {
+    opacity: 0.8;
+}
+
+#modal-container {
+    display: none;
+    position: fixed;
+    top: 0rem;
+    bottom: 0rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    width: 90%;
+    max-width: 90%;
+    margin: 5rem auto;
+    padding: 0rem;
+    border-radius: 10px;
+    height: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.modal h2 {
+    text-align: center;
+    color: green;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.modal ul {
+    list-style: none;
+    padding: 0;
+    /* display: grid; ızgara liste */
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.5rem;
+}
+
+.modal li {
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal li:hover {
+    background: #f0f0f0;
+}
+
+.highlight {
+	color: #2ecc71 !important;
+    background-color: #ffeb3b;
+    font-weight: bold;
+    padding: 3 2px;
+    border-radius: 3px;
+    animation: highlight 1.5s ease;
+}
+
+
+#quran-text {
+    font-family: 'Scheherazade', serif;
+    font-weight: 400;
+    font-size: 2.3rem;
+}
+
+.verse {
+    position: relative;
+    margin: 0px 7px;
+    transition: all 0.3s ease;
+    padding: 3px 0px;
+    border-radius: 7px;
+    line-height: 3.9rem;
+}
+
+.verse-number {
+	vertical-align: super;
+    color: #2ecc71;
+    font-size: 1.1rem;
+    font-weight: bold;
+    filter: none!important;
+    opacity: 1!important;
+    margin-right: -0.3rem;
+}
+
+.selected {
+    background-color: #f0fff0 !important;
+}
+
+.meal-container {
+    direction: ltr;
+    text-align: left;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: #333;
+    font-weight: 100;
+    border-radius: 5px 5px 0 0;
+}
+
+.meal-number {
+    font-weight: 100;
+    margin-right: 1px;
+}
+
+.word-meal-container {
+    margin-top: -10px; /* Meal ile arasındaki boşluğu azalt */
+    border-top: 1px solid #eee;
+    border-radius: 0 0 5px 5px;
+    direction: rtl;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    font-family: Arial, sans-serif;
+    font-weight: 100;
+}
+
+.words-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 23px;
+}
+
+.word-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1px;
+    gap: 1px;
+}
+
+.arabic-word {
+    font-family: 'Scheherazade', serif;
+    font-size: 1.7rem;
+    margin-bottom: 3px;
+    font-weight: 100;
+}
+
+.translation {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    word-break: break-word;
+    line-height: 0.3;
+}
+
+/* Tefsir butonu */
+.tafsir-btn {
+    background-color: #2c5364;
+    color: white;
+    border: none;
+    padding: 5px 10px border-radius:  border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    transition: background 0.3s ease;
+}
+
+.tafsir-btn:hover {
+    background-color: #203a43;
+}
+
+/* Tefsir modali */
+#tafsir-text {
+    direction: ltr;
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.5;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.swipe-area {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 20%;
+    z-index: 1000;
+}
+
+.swipe-left {
+    right: 0;
+}
+
+.swipe-right {
+    left: 0;
+}
+
+h3 {
+    text-align: center;
+    color: green;
+    border: 1px solid green;
+    padding: 33px;
+    margin: 33px 0;
+}
+
+.besmele {
+    text-align: center;
+    font-size: 2.3rem;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    font-family: 'Scheherazade', serif;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 90%;
+    margin: 5rem auto;
+    padding: 0rem;
+    border-radius: 10px;
+    height: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    font-family: Arial, sans-serif;
+}
+
+#search-input {
+    display: none;
+    width: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 0.5rem;
+}
+
+#search-input.visible {
+    display: block;
+    width: 200px;
+    opacity: 1;
+}
+
+#info-modal a {
+    color: #2c5364;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#info-modal a:hover {
+    color: #203a43;
+    text-decoration: underline;
+}
+
+@keyframes highlight {
+    from { background: #2ecc7133; }
+    to { background: transparent; }
+}
+
+@media (max-width: 768px) {
+    main {
+        font-size: 1.2rem;
+        padding: 1rem;
+        line-height: 2.5rem;
+    }
+    
+    .header-item {
+        font-size: 1.3rem;
+    }
+    
+    .control-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+    
+    .control-btn i {
+        font-size: 1.2rem;
+    }
+}
+
+.tafsir-container {
+    direction: ltr;
+    text-align: left;
+    margin: -10px 0 10px 0;
+    padding: 10px;
+    background: #f0f8ff;
+    border-radius: 0 0 5px 5px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    border-top: 1px solid #2c536433;
+}
+
+.tafsir-content strong {
+    color: #2c5364;
+}
+
+.tafsir-content br {
+    margin-bottom: 0.5rem;
+    display: block;
+    content: '';
+}
+
+.result-content {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.result-text {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.result-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.source {
+    color: #2c5364;
+    font-weight: bold;
+}
+
+.ayah {
+    font-style: italic;
+}
+
+        input, select {
+            width: 94%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .checkbox-group {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+        }
+        .hidden {
+            display: none;
+        }
+        #message, #completionMessage, #ayahInfo {
+            text-align: center; /* Mesajı ortala */
+            margin-top: 20px; /* Üstten boşluk bırak */
+        }
+        #ayahInfo {
+            font-weight: bold; /* Kalın yazı */
+        }
+
+.gitlab-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+}
+
+.gitlab-link a {
+    color: #28a745;
+    text-decoration: none;
+}
+
+.gitlab-link a:hover {
+    text-decoration: underline;
+}
+
+.verse.bulanikMetin .verse-text .word {
+    filter: blur(7px);
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+.verse.bulanikMetin .verse-text .word.revealed {
+    filter: none !important;
+    opacity: 1 !important;
+}
+
+/* ----------  Virtual keyboard  ---------- */
+body.keyboard-active {
+    padding-bottom: 123px; /* Klavye yüksekliği kadar boşluk */
+}
+
+.virtual-keyboard {
+    display: none;
+    position: fixed;
+    bottom: 1px;
+    left: 0;
+    right: 0;
+    background: #2c5364;
+    padding: 4px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-shadow: 0 -2px 6px rgba(0,0,0,.15);
+    z-index: 1500;
+    height: auto;
+    max-height: 557px;
+    overflow-y: auto;
+    /* Yeni eklenen satırlar */
+    width: calc(9 * 40px + 55px); /* 9 tuş * 40px genişlik + 18px margin (9 tuş * 2px yan margin) */
+    margin: 0 auto; /* Ortalamak için */
+    padding: 10px 0; /* Üstten ve alttan padding */
+}
+
+.virtual-keyboard .key {
+    width: 32px;
+    height: 41px;
+    margin: 1px; /* Margin'i azalttık */
+    line-height: 41px;
+    text-align: center;
+    font-size: 1.7rem;
+    font-family: 'Scheherazade', serif;
+    font-weight: 700;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s;
+    /* Yeni eklenen satır */
+    flex: 0 0 calc(11.11% - 4px); /* 9 tuş için eşit genişlik (100%/9) */
+}
+
+.virtual-keyboard .key:hover{
+    background:#e0e0e0;
+}
+
+/* Karakter bazlı bulanıklık */
+.char {
+    filter: blur(5px);
+    opacity: .4;
+    transition: filter .2s, opacity .2s;
+}
+
+.char.revealed {
+    filter: none;
+    opacity: 1;
+}
+
+/* Harakatları (harekeleri) gizle */
+.hiddenHaraka {
+    visibility: hidden !important;
+}
+
+
+/* hide the whole verse when it is still “un‑revealed” */
+.verse.write‑blur .verse-text{
+    visibility:hidden;          /* keep line‑height so layout does not jump */
+}
+
+.verse.write‑blur .verse-text .char{
+    visibility:visible;        /* only the letters become visible when they are revealed */
+}
+
+/* Harekelere özel stil */
+.char.haraka {
+    position: relative;
+    top: -0.5em;
+    font-size: 80%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.char.haraka.revealed {
+    opacity: 1;
+}
+
+/* Harf göründükten sonra harekelerin görünmesi için animasyon */
+.char.revealed ~ .haraka {
+    opacity: 0.5;
+    transition-delay: 0.1s;
+}
+
+.char.revealed ~ .haraka.revealed {
+    opacity: 1;
+}
