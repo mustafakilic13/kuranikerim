@@ -34,7 +34,7 @@ yaz : gari, sure, başlangıç ayet, bitiş ayet seçilir ve en altda besmele tu
 
 
 
-nemune sayfa : https://mustafakilic.gitlab.io/kuranikerim
+nemune sayfa : https://mustafakilic13.github.io/kuranikerim
 
 
 
