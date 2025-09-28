@@ -1,3 +1,6 @@
+
+بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+
 kurani kerim
 
 
@@ -26,3 +29,5 @@ kaynak
 api : https://alquran.cloud/ 
 font: https://www.cdnfonts.com/ https://cdnjs.com/ 
 kelime meal, muhtasar tefsir, seidi tefsir : https://gtaf.org/
+
+وَمَا تَوْفِيقِىٓ إِلَّا بِٱللَّهِ
