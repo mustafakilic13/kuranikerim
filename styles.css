@@ -450,19 +450,19 @@ h3 {
             font-weight: bold; /* Kalın yazı */
         }
 
-.gitlab-link {
+.github-link {
     text-align: center;
     margin-top: 20px;
     font-size: 12px;
     color: #666;
 }
 
-.gitlab-link a {
+.github-link a {
     color: #28a745;
     text-decoration: none;
 }
 
-.gitlab-link a:hover {
+.github-link a:hover {
     text-decoration: underline;
 }
 
