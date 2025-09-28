@@ -69,7 +69,7 @@ const fetchSurah = async (surahNumber) => {
     }
 };
 
-const BASE_PAGES_URL = "https://kuranikerim.github.io";
+const BASE_PAGES_URL = "https://raw.githubusercontent.com/mustafakilic13/kuranikerim/main/";
 
 const fetchMeal = async (surahNumber, ayahNumber) => {
     try {
@@ -133,6 +133,7 @@ const fetchWordMeal = async (surahNumber, ayahNumber) => {
         return null;
     }
 };
+
 
 const fetchTafsir = async (surahNumber, ayahNumber) => {
     try {
@@ -665,12 +666,12 @@ const searchKeyword = async () => {
             results = data.data?.matches || [];
         } else {
             if (!window.mealData) {
-    const response = await fetch(`${CORS_PROXY}https://codeberg.org/mustafakilic/kuranikerim/raw/branch/main/veritabani/mealmuhtasar.json`);
+    const response = await fetch(`${BASE_PAGES_URL}mealmuhtasar.json`);
     window.mealData = await response.json();
 }
 
 if (!tefsirData) {
-    const response = await fetch(`${CORS_PROXY}https://codeberg.org/mustafakilic/kuranikerim/raw/branch/main/veritabani/tefsirsaidi.json`);
+    const response = await fetch(`${BASE_PAGES_URL}tefsirsaidi.json`);
     tefsirData = await response.json();
 }
 
