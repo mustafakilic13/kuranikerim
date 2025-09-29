@@ -1,48 +1,30 @@
+# Kur'an-ı Kerim Uygulaması
 
 بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
 
-kurani kerim
+## Özellikler
 
+-x **Okuma**: Ekranı sağa/sola kaydırarak önceki/sonraki sayfalar arasında geçiş yapılır. Üst menülerden sure, sayfa, cüz seçimi yapılabilir.
+ **Dinleme**: Dinlemek istenen ayet metnine tıklanır, en altta 'besmele' tuşuna tıklanarak dinleme başlatılır.
+ **Ara/Bul**: Arapça harflerle Kur'an-ı Kerim metninde, Latin harflerle tefsirde arama yapılabilir.
+ **Kırık/Kelime Meal**: Ayet numarasına tıklandığında, ayet metninin altında kırık meal görünür.
+ **Muhtasar Tefsir**: Ayet numarasına tıklandığında, kırık meal metninin altında muhtasar tefsir görünür.
+ **Seidi Tefsir**: Ayet numarasına tıklandığında, muhtasar tefsirin altında tefsir ismine tıklanarak ayetin detaylı tefsiri görüntülenir.
+ **Ezber**: Sol alttaki menü simgesine tıklanarak ezber menüsü açılır.
+ *Dinle*: Garî, sure, başlangıç/bitiş ayeti, ayet tekrar sayısı gibi ayarlar seçilip en altta besmele tuşuna tıklanarak dinleme başlatılır.
+  *Oku*: Garî, başlangıç sure/ayet ve bitiş sure/ayet seçimi yapılır. Seçilen aralık sayfada bulanıklaşır.
+ *Yaz*: Garî, sure, başlangıç ayet, bitiş ayet seçilir. Seçili ayet aralığı bulanıklaşır, sanal klavyeden doğru tuşlara tıklayarak yazma alıştırması yapılır.
 
-okuma : ekranı sağa sola kaydırarak önceki/sonraki sayfalar arasında geciş yapılır, üst menülerden sure, sayfa, cuz seçimi yapılır.
+## Örnek Sayfa
 
+[Online Demo](https://mustafakilic13.github.io/kuranikerim)
 
-dinleme : dinlemek istenilen ayet metnine tıklayarak seçili yapılır ve en altda besmele tuşuna tıklanılır.
+## Kaynaklar
 
+- **API:** [alquran.cloud](https://alquran.cloud/)
+- **Font:** [cdnfonts.com](https://www.cdnfonts.com/), [cdnjs.com](https://cdnjs.com/)
+- **Kelime Meal, Muhtasar Tefsir, Seidi Tefsir:** [gtaf.org](https://gtaf.org/)
 
-ara/bul : arabca harf ile kurani kerim metninde  ve latin haflerle tefsirde arama yapılır.
-
-
-kırık/kelime meal : ayet numarasına tıkladığında, ayet metninin altında kırık meal görünür.
-
-
-muhtasar tefsir : ayet numarasına tıkladığında, kırık meal metninin altında muhtasar tefsir  görünür.
-
-
-seidi tefsir : ayet numarasına tıkladığında, muhtasar tefsir  metninin altında tefsir ismine tıkladığında ayetin tefsiri görünür.
-
-
-ezber : alt solda menü simgesine tıklandığında ezber menüsü açılır.
-
-
-dinle : garî, sure, başlangıç/bitiş ayeti, ayet tekrar sayısı, bu ayarlarla baştan sona tekrar sayısı seçilir ve en altda besmele tuşuna tıklanılır.
-
-oku : gari, başlangıç sure, başlangıç ayet, bitiş sure, bitiş ayet seçilir ve en altda besmele tuşuna tıklanılır. seçilen sure, ayet aralığı sayfada bulanık görünür, bulanık ayete her tıklamada bir sonraki kelime netleşir.
-
-yaz : gari, sure, başlangıç ayet, bitiş ayet seçilir ve en altda besmele tuşuna tıklanılır. seçilen ayet aralığı sayfada bulanık görünür, sanal klavyeden doğru tuşlara tıklayarak ayet yazılarak netleşir.
-
-
-
-
-nemune sayfa : https://mustafakilic13.github.io/kuranikerim
-
-
-
-kaynak 
-api : https://alquran.cloud/
-
-font: https://www.cdnfonts.com/ https://cdnjs.com/
-
-kelime meal, muhtasar tefsir, seidi tefsir : https://gtaf.org/
+---
 
 وَمَا تَوْفِيقِىٓ إِلَّا بِٱللَّهِ
