@@ -5,15 +5,24 @@
 ## Özellikler
 
  **Okuma**: Ekranı sağa/sola kaydırarak önceki/sonraki sayfalar arasında geçiş yapılır. Üst menülerden sure, sayfa, cüz seçimi yapılabilir.
+ 
  **Dinleme**: Dinlemek istenen ayet metnine tıklanır, en altta 'besmele' tuşuna tıklanarak dinleme başlatılır.
+ 
  **Ara/Bul**: Arapça harflerle Kur'an-ı Kerim metninde, Latin harflerle tefsirde arama yapılabilir.
+ 
  **Kırık/Kelime Meal**: Ayet numarasına tıklandığında, ayet metninin altında kırık meal görünür.
+ 
  **Muhtasar Tefsir**: Ayet numarasına tıklandığında, kırık meal metninin altında muhtasar tefsir görünür.
+ 
  **Seidi Tefsir**: Ayet numarasına tıklandığında, muhtasar tefsirin altında tefsir ismine tıklanarak ayetin detaylı tefsiri görüntülenir.
+ 
  **Ezber**: Sol alttaki menü simgesine tıklanarak ezber menüsü açılır.
- *Dinle*: Garî, sure, başlangıç/bitiş ayeti, ayet tekrar sayısı gibi ayarlar seçilip en altta besmele tuşuna tıklanarak dinleme başlatılır.
-  *Oku*: Garî, başlangıç sure/ayet ve bitiş sure/ayet seçimi yapılır. Seçilen aralık sayfada bulanıklaşır.
- *Yaz*: Garî, sure, başlangıç ayet, bitiş ayet seçilir. Seçili ayet aralığı bulanıklaşır, sanal klavyeden doğru tuşlara tıklayarak yazma alıştırması yapılır.
+ 
+     *Dinle*: Garî, sure, başlangıç/bitiş ayeti, ayet tekrar sayısı gibi ayarlar seçilip en altta besmele tuşuna tıklanarak dinleme başlatılır.
+    
+     *Oku*: Garî, başlangıç sure/ayet ve bitiş sure/ayet seçimi yapılır. Seçilen aralık sayfada bulanıklaşır. Ayete her bir tıklamada, bir sonraki kelime görünür olur.
+     
+     *Yaz*: Garî, sure, başlangıç ayet, bitiş ayet seçilir. Seçili ayet aralığı bulanıklaşır, sanal klavyeden doğru harflere tuşlandığında ayetin tamamı görünür olur.
 
 ## Örnek Sayfa
 
