@@ -4,7 +4,7 @@
 
 ## Özellikler
 
--x **Okuma**: Ekranı sağa/sola kaydırarak önceki/sonraki sayfalar arasında geçiş yapılır. Üst menülerden sure, sayfa, cüz seçimi yapılabilir.
+ **Okuma**: Ekranı sağa/sola kaydırarak önceki/sonraki sayfalar arasında geçiş yapılır. Üst menülerden sure, sayfa, cüz seçimi yapılabilir.
  **Dinleme**: Dinlemek istenen ayet metnine tıklanır, en altta 'besmele' tuşuna tıklanarak dinleme başlatılır.
  **Ara/Bul**: Arapça harflerle Kur'an-ı Kerim metninde, Latin harflerle tefsirde arama yapılabilir.
  **Kırık/Kelime Meal**: Ayet numarasına tıklandığında, ayet metninin altında kırık meal görünür.
