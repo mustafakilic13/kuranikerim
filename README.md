@@ -18,11 +18,11 @@
  
  **Ezber**: Sol alttaki menü simgesine tıklanarak ezber menüsü açılır.
  
-     **Dinle**: Garî, sure, başlangıç/bitiş ayeti, ayet tekrar sayısı gibi ayarlar seçilip en altta besmele tuşuna tıklanarak dinleme başlatılır.
+   **Dinle**: Garî, sure, başlangıç/bitiş ayeti, ayet tekrar sayısı gibi ayarlar seçilip en altta besmele tuşuna tıklanarak dinleme başlatılır.
     
-     **Oku**: Garî, başlangıç sure/ayet ve bitiş sure/ayet seçimi yapılır. Seçilen aralık sayfada bulanıklaşır. Ayete her bir tıklamada, bir sonraki kelime görünür olur.
+   **Oku**: Garî, başlangıç sure/ayet ve bitiş sure/ayet seçimi yapılır. Seçilen aralık sayfada bulanıklaşır. Ayete her bir tıklamada, bir sonraki kelime görünür olur.
      
-     **Yaz**: Garî, sure, başlangıç ayet, bitiş ayet seçilir. Seçili ayet aralığı bulanıklaşır, sanal klavyeden doğru harflere tuşlandığında ayetin tamamı görünür olur.
+   **Yaz**: Garî, sure, başlangıç ayet, bitiş ayet seçilir. Seçili ayet aralığı bulanıklaşır, sanal klavyeden doğru harflere tuşlandığında ayetin tamamı görünür olur.
 
 ## Örnek Sayfa
 
