@@ -29,7 +29,7 @@ Bu uygulama öncelikle, Kur'an-ı Kerim'in ezberlenmesine yardımcı olmak amac�
 
 ## Örnek Sayfa
 
-[Online Demo](https://mustafakilic13.github.io/kuranikerim)
+[Çevrimiçi sayfa](https://mustafakilic13.github.io/kuranikerim)
 
 ## Kaynaklar
 
