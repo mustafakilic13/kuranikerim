@@ -21,11 +21,11 @@ Bu uygulama öncelikle, Kur'an-ı Kerim'in ezberlenmesine yardımcı olmak amac�
  
  **Ezber**: Sol alttaki menü simgesine tıklanarak ezber menüsü açılır.
  
-- **Dinle:** Garî, sure, başlangıç/bitiş ayeti, ayet tekrar sayısı gibi ayarlar seçilip en altta besmele tuşuna tıklanarak dinleme başlatılır.
+- **Dinle:** Gari, sure, başlangıç/bitiş ayeti, ayet tekrar sayısı gibi ayarlar seçilip en altta besmele tuşuna tıklanarak tekrarlı dinleme başlatılır.
     
-- **Oku:** Garî, başlangıç sure/ayet ve bitiş sure/ayet seçimi yapılır. Seçilen aralık sayfada bulanıklaşır. Ayete her bir tıklamada, bir sonraki kelime görünür olur.
+- **Oku:** Garî, başlangıç sure/ayet ve bitiş sure/ayet seçimi yapılır. En altta besmele tuşuna tıklandığında seçilen aralık sayfada bulanıklaşır. Bulanık ayete her bir tıklamada, bir sonraki kelime görünür olur. Böylelikle ezberden okunan kelime kontrol edilir.
      
-- **Yaz:** Garî, sure, başlangıç ayet, bitiş ayet seçilir. Seçili ayet aralığı bulanıklaşır, sanal klavyeden doğru harflere tuşlandığında ayetin tamamı görünür olur.
+- **Yaz:** Garî, sure, başlangıç ayet, bitiş ayet seçilir. En altta besmele tuşuna tıklandığında seçili ayet aralığı sayfada bulanıklaşır. Sanal klavyeden doğru harfe tuşlandığında harf görünür olur.
 
 ## Örnek Sayfa
 
