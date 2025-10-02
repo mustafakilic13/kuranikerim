@@ -1,9 +1,9 @@
 
 بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
 
-# Kur'an-ı Kerim Uygulaması
+# Kur'an-ı Kerim Web Uygulaması
 
-Bu uygulama öncelikle, Kur'an-ı Kerim'in ezberlenmesine yardımcı olmak amacıyla geliştirilmiştir. Dinleme , okuma, yazma özelliği ile üç ayrı ezber seçeneği sunar. Ezber özelliğinin yanı sıra normal  okuma,  dinleme, anlamını ve tefsirini öğrenme  seçenekleri sunar.
+Bu web uygulama öncelikle, Kur'an-ı Kerim'in ezberlenmesine yardımcı olmak amacıyla geliştirilmiştir. Dinleme , okuma, yazma özelliği ile üç ayrı ezber seçeneği sunar. Ezber özelliğinin yanı sıra normal  okuma,  dinleme, anlamını ve tefsirini öğrenme  seçenekleri sunar.
 
 ## Özellikler
 
