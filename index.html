@@ -170,11 +170,14 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .tafsir-toggle {
   display: none; direction: ltr; text-align: left;
   color: var(--gold); cursor: pointer; font-size: 13px;
-  padding: 2px 12px; user-select: none;
-  font-family: sans-serif;
+  padding: 5px 12px 5px 10px; user-select: none;
+  font-family: sans-serif; margin: 8px 0 6px;
+  border-left: 3px solid var(--gold);
+  background: #fffdf5; border-radius: 0 4px 4px 0;
+  font-weight: 600; letter-spacing: 0.3px;
 }
 .tafsir-toggle.visible { display: block; }
-.tafsir-toggle:hover { text-decoration: underline; }
+.tafsir-toggle:hover { background: #fff3cc; text-decoration: none; }
 .tafsir-row {
   display: none; direction: ltr; text-align: left;
   background: #fffbf0; border-right: 3px solid var(--gold);
