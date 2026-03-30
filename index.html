@@ -1,0 +1,2481 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0">
+<title>القرآن الكريم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg: #fdf8f0;
+  --bg2: #f5ede0;
+  --paper: #fffdf7;
+  --green: #2d7a4f;
+  --green-light: #e8f5ee;
+  --green-select: #f0fff0;
+  --gold: #b8860b;
+  --gold-light: #f5e6b8;
+  --text: #1a1a1a;
+  --text2: #444;
+  --border: #d4c49a;
+  --shadow: rgba(0,0,0,0.12);
+  --header-h: 64px;
+  --footer-h: 60px;
+  --font-quran: 'Scheherazade New', serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--font-quran); }
+
+/* HEADER */
+#header {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+  background: linear-gradient(135deg, #1a3a2a 0%, #2d5a3d 50%, #1a3a2a 100%);
+  display: flex; align-items: center; justify-content: center;
+  gap: 28px; z-index: 100;
+  border-bottom: 2px solid var(--gold);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+}
+.header-item {
+  display: flex; flex-direction: column; align-items: center;
+  cursor: pointer; padding: 6px 14px; border-radius: 8px;
+  transition: background 0.2s;
+  color: #e8d9b0;
+  user-select: none;
+}
+.header-item:hover { background: rgba(255,255,255,0.1); }
+.header-item .label { font-size: 11px; color: #a0c8a0; letter-spacing: 0.5px; font-family: var(--font-quran); }
+.header-item .value { font-size: 20px; font-weight: 700; color: var(--gold-light); font-family: var(--font-quran); line-height: 1.2; }
+.header-sep { width: 1px; height: 36px; background: rgba(255,255,255,0.2); }
+
+/* MAIN */
+#main {
+  position: fixed; top: var(--header-h); bottom: var(--footer-h); left: 0; right: 0;
+  overflow: hidden; touch-action: pan-x pan-y pinch-zoom;
+}
+#page-container {
+  width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden;
+  padding: 24px 20px 20px;
+  background: var(--paper);
+  transition: opacity 0.25s;
+}
+#page-container::-webkit-scrollbar { width: 5px; }
+#page-container::-webkit-scrollbar-track { background: var(--bg2); }
+#page-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* QURAN TEXT */
+#quran-content { direction: rtl; }
+.surah-header {
+  text-align: center; margin: 28px 0 6px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.surah-title-frame {
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 6px 32px;
+  background: linear-gradient(135deg, #fffbf0, #fff8e0);
+  box-shadow: 0 2px 8px rgba(184,134,11,0.15);
+  display: inline-block;
+}
+.surah-title-frame h1 {
+  color: var(--green);
+  font-family: var(--font-quran);
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+.basmala {
+  font-family: var(--font-quran);
+  font-size: 22px;
+  color: var(--text);
+  text-align: center;
+  margin: 6px 0 12px;
+  line-height: 1.8;
+}
+.ayah-num-ar {
+  color: var(--green);
+  font-family: var(--font-quran);
+  font-size: 20px;
+  cursor: pointer;
+  display: inline;
+  padding: 0 2px;
+  border-radius: 3px;
+  transition: background 0.15s;
+  user-select: none;
+}
+.ayah-num-ar:hover { background: var(--green-light); }
+/* Ruku ayet numarası renkleri: tek=yeşil (varsayılan), çift=mor */
+.ruku-group { display: inline; }
+.ruku-even .ayah-num-ar { color: #7c3aed; }
+.ruku-even .ayah-num-ar:hover { background: #ede9fe; }
+.ayah-span {
+  display: inline;
+  font-family: var(--font-quran);
+  font-size: 22px;
+  line-height: 2.0;
+  cursor: pointer;
+  padding: 1px 3px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.ayah-span.selected { background: var(--green-select); }
+.ayah-span:hover { background: #f5fff5; }
+.ayah-block { display: inline; }
+
+.meal-row {
+  display: none; direction: ltr; text-align: left;
+  background: #f8fffe; border-right: 3px solid var(--green);
+  padding: 8px 12px 8px 10px; margin: 6px 0 4px;
+  border-radius: 0 6px 6px 0; overflow: hidden;
+}
+.meal-row.visible { display: block; }
+.word-meal-row {
+  display: none; direction: rtl;
+  background: #f0f8ff; border-right: 3px solid #5599bb;
+  padding: 8px 12px; margin: 4px 0 2px;
+  border-radius: 0 6px 6px 0;
+}
+.word-meal-row.visible { display: block; }
+.wbw-container {
+  display: flex; flex-wrap: wrap; gap: 6px 10px;
+  direction: rtl; align-items: flex-start;
+}
+.wbw-word {
+  display: inline-flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: 4px 6px;
+  background: #fff; border: 1px solid #c5ddf0;
+  border-radius: 6px; min-width: 46px;
+}
+.wbw-ar {
+  font-family: var(--font-quran); font-size: 18px; color: var(--text);
+  direction: rtl; line-height: 1.6;
+}
+.wbw-en {
+  font-family: sans-serif; font-size: 11px; color: #336699;
+  direction: ltr; text-align: center; line-height: 1.3;
+  white-space: nowrap;
+}
+.wbw-tr {
+  font-family: sans-serif; font-size: 12px; color: #2d5a3d;
+  direction: ltr; text-align: center; line-height: 1.3;
+}
+.wbw-num {
+  font-family: sans-serif; font-size: 10px; color: #aaa;
+  text-align: center; line-height: 1;
+}
+.meal-num { font-weight: 700; color: var(--green); margin-left: 6px; font-family: sans-serif; font-size: 14px; }
+.meal-text { font-family: sans-serif; font-size: 16px; color: var(--text2); direction: ltr; }
+.meal-source { font-family: sans-serif; font-size: 11px; color: #aaa; direction: ltr; font-style: italic; float: right; margin-top: 4px; }
+.tafsir-toggle {
+  display: none; direction: ltr; text-align: left;
+  color: var(--gold); cursor: pointer; font-size: 13px;
+  padding: 2px 12px; user-select: none;
+  font-family: sans-serif;
+}
+.tafsir-toggle.visible { display: block; }
+.tafsir-toggle:hover { text-decoration: underline; }
+.tafsir-row {
+  display: none; direction: ltr; text-align: left;
+  background: #fffbf0; border-right: 3px solid var(--gold);
+  padding: 10px 14px; margin: 4px 0; border-radius: 0 6px 6px 0;
+  font-size: 14px; color: #333; font-family: sans-serif; line-height: 1.8;
+  max-height: 400px; overflow-y: auto;
+}
+.tafsir-row p { margin-bottom: 6px; }
+.tafsir-row.visible { display: block; }
+
+/* FOOTER */
+#footer {
+  position: fixed; bottom: 0; left: 0; right: 0; height: var(--footer-h);
+  background: linear-gradient(135deg, #1a3a2a 0%, #2d5a3d 50%, #1a3a2a 100%);
+  display: flex; align-items: center; justify-content: space-around;
+  border-top: 2px solid var(--gold);
+  z-index: 100;
+}
+
+.footer-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  color: #a0c8a0; cursor: pointer; padding: 6px 20px;
+  border-radius: 8px; transition: all 0.2s; border: none; background: none;
+  font-family: var(--font-quran);
+}
+.footer-btn:hover { background: rgba(255,255,255,0.1); color: #e8d9b0; }
+.footer-btn i { font-size: 20px; }
+.footer-btn span { font-size: 11px; font-family: sans-serif; }
+.footer-btn.active { color: var(--gold-light); }
+
+/* LOADING */
+#loading {
+  position: fixed; inset: 0; background: rgba(253,248,240,0.95);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 999; gap: 16px;
+}
+#loading .spin { font-size: 40px; color: var(--green); animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+#loading p { font-size: 20px; color: var(--text2); font-family: var(--font-quran); }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  z-index: 200; display: none; align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--paper); border-radius: 14px;
+  width: min(480px, 94vw); max-height: 80vh;
+  overflow: hidden; display: flex; flex-direction: column;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+}
+.modal-header {
+  padding: 14px 18px; background: linear-gradient(135deg, #1a3a2a, #2d5a3d);
+  color: #e8d9b0; display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-quran); font-size: 18px;
+}
+.modal-close { cursor: pointer; color: #a0c8a0; font-size: 20px; line-height: 1; border: none; background: none; }
+.modal-close:hover { color: #fff; }
+.modal-search { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.modal-search input {
+  width: 100%; padding: 8px 12px; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 15px; outline: none;
+  font-family: var(--font-quran); background: var(--bg);
+}
+.modal-list {
+  overflow-y: auto; padding: 8px;
+  flex: 1;
+}
+.modal-list::-webkit-scrollbar { width: 5px; }
+.modal-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.modal-item {
+  padding: 10px 14px; cursor: pointer; border-radius: 8px;
+  display: flex; align-items: center; gap: 12px;
+  transition: background 0.15s;
+  direction: rtl;
+}
+.modal-item:hover { background: var(--green-light); }
+.modal-item .num { font-size: 18px; color: var(--green); font-family: var(--font-quran); min-width: 36px; text-align: center; }
+.modal-item .name { font-size: 17px; font-family: var(--font-quran); }
+.modal-item .sub { font-size: 12px; color: #888; font-family: sans-serif; margin-right: auto; }
+
+/* SEARCH MODAL */
+#search-modal .modal-box { width: min(600px, 96vw); }
+#search-query-input {
+  width: 100%; padding: 10px 14px; font-size: 16px;
+  border: 1px solid var(--border); border-radius: 8px;
+  outline: none; font-family: sans-serif; background: var(--bg);
+}
+#search-count { text-align: center; font-size: 20px; font-weight: 700; color: var(--green); padding: 10px; font-family: sans-serif; }
+.search-result-item {
+  padding: 12px 14px; border-radius: 8px; cursor: pointer;
+  border-bottom: 1px solid #eee; transition: background 0.15s;
+  direction: rtl;
+}
+.search-result-item:hover { background: var(--green-light); }
+.search-result-item .sr-text { font-size: 18px; font-family: sans-serif; line-height: 1.8; margin-bottom: 4px; }
+.search-result-item .sr-tafsir-text { font-size: 14px; font-family: sans-serif; line-height: 1.6; color: #333; }
+.sr-type-quran { color: #1a5a9a !important; }
+.sr-type-meal { color: #2d7a4f !important; }
+.sr-type-tafsir { color: #8b5e00 !important; }
+.sr-more-btn {
+  text-align: center; padding: 10px; cursor: pointer;
+  color: var(--green); font-family: sans-serif; font-size: 14px;
+  border-top: 1px solid var(--border); margin-top: 4px;
+}
+.sr-more-btn:hover { background: var(--green-light); }
+.sr-divider { text-align: center; font-size: 12px; color: #aaa; padding: 8px 0; font-family: sans-serif; border-top: 1px solid var(--border); margin: 4px 0; }
+.search-result-item .sr-meta-ar { font-size: 15px; font-family: var(--font-quran); color: var(--green); margin-bottom: 2px; direction: rtl; }
+.search-result-item .sr-meta { font-size: 13px; color: #666; font-family: sans-serif; direction: ltr; }
+.modal-item.active { background: var(--green-light); font-weight: 700; }
+.modal-item.active .num, .modal-item.active .name { color: var(--green); }
+
+/* EZBER MODAL */
+#ezber-modal .modal-box { width: min(520px, 96vw); }
+.ezber-tabs { display: flex; border-bottom: 2px solid var(--border); background: var(--bg2); }
+.ezber-tab {
+  flex: 1; padding: 12px 8px; border: none; background: none;
+  cursor: pointer; font-size: 14px; font-family: sans-serif;
+  color: var(--text2); transition: all 0.2s; border-bottom: 3px solid transparent;
+  margin-bottom: -2px; display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.ezber-tab:hover { background: var(--green-light); color: var(--green); }
+.ezber-tab.active { color: var(--green); font-weight: 700; border-bottom: 3px solid var(--green); background: var(--paper); }
+.ezber-panel { display: none; }
+.ezber-panel.active { display: block; }
+.settings-body { padding: 18px; display: flex; flex-direction: column; gap: 16px; direction: ltr; }
+.settings-row { display: flex; flex-direction: column; gap: 6px; }
+.settings-row label { font-size: 14px; color: var(--text2); font-family: sans-serif; font-weight: 600; }
+.settings-row select, .settings-row input[type=number] {
+  padding: 8px 12px; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 14px; outline: none;
+  font-family: var(--font-quran); background: var(--bg);
+}
+.settings-row .range-row { display: flex; gap: 10px; align-items: center; }
+.settings-row .range-row span { font-size: 13px; color: #888; }
+.ezber-coming-soon {
+  padding: 40px 20px; text-align: center; color: var(--text2);
+  font-family: sans-serif; font-size: 15px; direction: ltr;
+}
+.ezber-coming-soon i { font-size: 36px; color: var(--border); display: block; margin-bottom: 12px; }
+.btn-apply {
+  padding: 12px; background: var(--green); color: #fff;
+  border: none; border-radius: 8px; cursor: pointer;
+  font-size: 16px; font-family: sans-serif; font-weight: 600;
+  transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-apply:hover { background: #235f3d; }
+.ezber-github-link {
+  display: block; text-align: center; margin-top: 12px;
+  color: #888; font-size: 12px; font-family: sans-serif;
+  text-decoration: none; transition: color 0.2s;
+}
+.ezber-github-link:hover { color: var(--green); }
+.ezber-github-link i { margin-right: 4px; }
+
+/* SEARCH MINIMIZED */
+#search-bar {
+  display: none; direction: ltr; position: fixed;
+  bottom: var(--footer-h); left: 0; right: 0; z-index: 150;
+  background: #fff; border-top: 1px solid var(--border);
+  padding: 8px 14px; gap: 8px; align-items: center;
+  box-shadow: 0 -4px 12px var(--shadow);
+}
+#search-bar.open { display: flex; }
+#search-bar input { flex: 1; padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 15px; outline: none; font-family: var(--font-quran); }
+#search-bar .sb-btn { background: none; border: none; cursor: pointer; color: var(--green); font-size: 20px; padding: 4px; }
+
+/* U+06DF — Kuran tilavet işareti, sukun'dan ayırt etmek için renk */
+.ayah-span ۟, .basmala ۟ {
+  color: #c87533;
+}
+/* CSS unicode-range ile sadece bu karakteri hedefle */
+.quran-special {
+  font-size: 1em;
+  font-weight: 100;
+  opacity: 0.33;
+}
+
+/* OKU MODU - bulanık ayet */
+.ayah-blur .ayah-span { filter: blur(5px); cursor: pointer; user-select: none; }
+.ayah-blur .ayah-span:hover { filter: blur(4px); }
+.oku-word { display: inline; transition: filter 0.2s; }
+.oku-word.revealed { filter: none !important; }
+.ayah-blur .ayah-span { filter: blur(5px); cursor: pointer; }
+.ayah-active-oku .ayah-span { filter: none; }
+.oku-active-border { outline: 2px solid var(--gold); border-radius: 4px; }
+
+/* YAZ MODU */
+#yaz-keyboard {
+  display: none; position: fixed; bottom: var(--footer-h); left: 0; right: 0;
+  background: #1a3a2a; border-top: 2px solid var(--gold);
+  padding: 5px 4px 4px; z-index: 150; direction: rtl;
+}
+#yaz-keyboard.open { display: block; }
+.yaz-kb-row { display: flex; justify-content: center; gap: 3px; margin-bottom: 3px; }
+.yaz-key {
+  width: calc((100vw - 30px) / 11);
+  max-width: 42px;
+  height: 34px; border-radius: 5px;
+  background: #2d5a3d; border: 1px solid #4a8a5d;
+  color: #e8d9b0; font-family: var(--font-quran); font-size: 17px;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  transition: background 0.1s; user-select: none; flex-shrink: 0;
+}
+.yaz-key:hover { background: #3d7a55; }
+.yaz-key:active { background: var(--gold); color: #1a1a1a; transform: scale(0.92); }
+.yaz-char { display: inline; }
+.yaz-char.blurred { filter: blur(5px); }
+.yaz-char.revealed { filter: none; }
+
+/* AUDIO indicator */
+.ayah-span.playing { background: #fff3cd !important; outline: 2px solid var(--gold); }
+
+/* Page transition */
+.fade-out { opacity: 0; }
+.fade-in { opacity: 1; }
+
+@media (max-width: 600px) {
+  .header-item .value { font-size: 17px; }
+  #header { gap: 14px; }
+  .ayah-span { font-size: 23px; }
+  .basmala { font-size: 23px; }
+  .surah-title-frame h1 { font-size: 23px; }
+}
+</style>
+</head>
+<body>
+<script>
+// Wake Lock - ekranın kapanmasını engelle
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) {
+      window._wakeLock = await navigator.wakeLock.request('screen');
+      document.addEventListener('visibilitychange', async () => {
+        if (document.visibilityState === 'visible') {
+          window._wakeLock = await navigator.wakeLock.request('screen');
+        }
+      });
+    }
+  } catch(e) {}
+}
+requestWakeLock();
+</script>
+
+<!-- LOADING -->
+<div id="loading">
+  <i class="fa-solid fa-spinner spin"></i>
+  <p>أَعُوذُ بٱللَّهِ مِنَ ٱلشَّيْطَانِ ٱلرَّجِيمِ</p>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="header-item" id="hdr-surah" title="Sure seç">
+    <span class="label">السورة</span>
+    <span class="value" id="hdr-surah-name">—</span>
+  </div>
+  <div class="header-sep"></div>
+  <div class="header-item" id="hdr-page" title="Sayfa seç">
+    <span class="label">الصفحة</span>
+    <span class="value" id="hdr-page-num">—</span>
+  </div>
+  <div class="header-sep"></div>
+  <div class="header-item" id="hdr-juz" title="Cüz seç">
+    <span class="label">الجزء</span>
+    <span class="value" id="hdr-juz-num">—</span>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="main">
+  <div id="page-container">
+    <div id="quran-content"></div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <button class="footer-btn" id="btn-search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span>Ara</span>
+  </button>
+  <button class="footer-btn" id="btn-play">
+    <span id="play-label" style="font-family:var(--font-quran);font-size:14px;color:#e8d9b0;line-height:1.3;">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
+  </button>
+  <button class="footer-btn" id="btn-menu">
+    <i class="fa-solid fa-book-open"></i>
+    <span>Ezber</span>
+  </button>
+</footer>
+
+<!-- YAZ MODU KLAVYE -->
+<div id="yaz-keyboard">
+  <div class="yaz-kb-row">
+    <span class="yaz-key" data-char="ض">ض</span><span class="yaz-key" data-char="ص">ص</span><span class="yaz-key" data-char="ث">ث</span><span class="yaz-key" data-char="ق">ق</span><span class="yaz-key" data-char="ف">ف</span><span class="yaz-key" data-char="غ">غ</span><span class="yaz-key" data-char="ع">ع</span><span class="yaz-key" data-char="ه">ه</span><span class="yaz-key" data-char="خ">خ</span><span class="yaz-key" data-char="ح">ح</span><span class="yaz-key" data-char="ج">ج</span>
+  </div>
+  <div class="yaz-kb-row">
+    <span class="yaz-key" data-char="ش">ش</span><span class="yaz-key" data-char="س">س</span><span class="yaz-key" data-char="ي">ي</span><span class="yaz-key" data-char="ب">ب</span><span class="yaz-key" data-char="ل">ل</span><span class="yaz-key" data-char="ا">ا</span><span class="yaz-key" data-char="ت">ت</span><span class="yaz-key" data-char="ن">ن</span><span class="yaz-key" data-char="م">م</span><span class="yaz-key" data-char="ك">ك</span><span class="yaz-key" data-char="ط">ط</span>
+  </div>
+  <div class="yaz-kb-row">
+    <span class="yaz-key" data-char="ئ">ئ</span><span class="yaz-key" data-char="ء">ء</span><span class="yaz-key" data-char="ؤ">ؤ</span><span class="yaz-key" data-char="ر">ر</span><span class="yaz-key" data-char="ى">ى</span><span class="yaz-key" data-char="ة">ة</span><span class="yaz-key" data-char="و">و</span><span class="yaz-key" data-char="ز">ز</span><span class="yaz-key" data-char="ظ">ظ</span><span class="yaz-key" data-char="ذ">ذ</span><span class="yaz-key" data-char="د">د</span>
+  </div>
+  <div class="yaz-kb-row">
+    <span class="yaz-key" data-char="أ">أ</span><span class="yaz-key" data-char="إ">إ</span><span class="yaz-key" data-char="آ">آ</span><span class="yaz-key" data-char="ٱ">ٱ</span><span class="yaz-key" data-char="لا">لا</span><span class="yaz-key" data-char="لأ">لأ</span><span class="yaz-key" data-char="لإ">لإ</span><span class="yaz-key" data-char="لآ">لآ</span><span class="yaz-key" id="yaz-hint-btn" data-char="HINT" style="background:#3a5a2a;border-color:#6a9a4a;font-size:20px;">💡</span>
+  </div>
+</div>
+
+<!-- SEARCH BAR (minimized) -->
+<div id="search-bar">
+  <button class="sb-btn" id="sb-close"><i class="fa-solid fa-xmark"></i></button>
+  <input id="search-input-bar" type="text" placeholder="Arama...">
+  <button class="sb-btn" id="sb-go"><i class="fa-solid fa-search"></i></button>
+  <button class="sb-btn" id="sb-expand"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+</div>
+
+<!-- SURAH MODAL -->
+<div class="modal-overlay" id="surah-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span>قائمة السور</span>
+      <button class="modal-close" data-modal="surah-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-search">
+      <input type="text" id="surah-filter" placeholder="Sure ara...">
+    </div>
+    <div class="modal-list" id="surah-list"></div>
+  </div>
+</div>
+
+<!-- PAGE MODAL -->
+<div class="modal-overlay" id="page-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span>قائمة الصفحات</span>
+      <button class="modal-close" data-modal="page-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-search">
+      <input type="text" id="page-filter" placeholder="Sayfa ara...">
+    </div>
+    <div class="modal-list" id="page-list"></div>
+  </div>
+</div>
+
+<!-- JUZ MODAL -->
+<div class="modal-overlay" id="juz-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span>قائمة الأجزاء</span>
+      <button class="modal-close" data-modal="juz-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-list" id="juz-list"></div>
+  </div>
+</div>
+
+<!-- SEARCH MODAL -->
+<div class="modal-overlay" id="search-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span>البحث في القرآن</span>
+      <button class="modal-close" data-modal="search-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-search">
+      <input type="text" id="search-query-input" placeholder="Kelime veya ayet ara...">
+    </div>
+    <div id="search-count"></div>
+    <div class="modal-list" id="search-results"></div>
+  </div>
+</div>
+
+<!-- EZBER MODAL -->
+<div class="modal-overlay" id="ezber-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span>الحفظ — Ezber</span>
+      <button class="modal-close" data-modal="ezber-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ezber-tabs">
+      <button class="ezber-tab active" data-tab="dinle"><i class="fa-solid fa-headphones"></i> Dinle</button>
+      <button class="ezber-tab" data-tab="oku"><i class="fa-solid fa-eye"></i> Oku</button>
+      <button class="ezber-tab" data-tab="yaz"><i class="fa-solid fa-pen"></i> Yaz</button>
+    </div>
+    <div class="ezber-panel active" id="panel-dinle">
+      <div class="settings-body">
+        <div class="settings-row">
+          <label>Karî (Okuyucu)</label>
+          <select id="reciter-select">
+            <option value="Husary_128kbps_Mujawwad">Husary (Mücevved)</option>
+            <option value="Abdul_Basit_Mujawwad_128kbps">Abdulbasit (Mücevved)</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <label>Sure</label>
+          <select id="range-surah-select">
+            <option value="">-- Sure seçin --</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <label>Başlangıç / Bitiş Ayet</label>
+          <div class="range-row">
+            <input type="number" id="range-from" min="1" placeholder="Başlangıç" style="width:110px">
+            <span>—</span>
+            <input type="number" id="range-to" min="1" placeholder="Bitiş" style="width:110px">
+          </div>
+        </div>
+        <div class="settings-row">
+          <label>Ayet Tekrar Sayısı <small style="font-weight:400;color:#999">(Her ayet kaç kez tekrar)</small></label>
+          <input type="number" id="repeat-count" min="1" max="99" value="1" style="width:100px">
+        </div>
+        <div class="settings-row">
+          <label>Aynısını Tekrar Sayısı <small style="font-weight:400;color:#999">(Tüm aralık kaç kez)</small></label>
+          <input type="number" id="repeat-all-count" min="1" max="99" value="1" style="width:100px">
+        </div>
+        <button class="btn-apply" id="apply-settings">
+          <i class="fa-solid fa-play"></i> Uygula ve Dinlemeye Başla
+        </button>
+        <a class="ezber-github-link" href="https://github.com/mustafakilic13/kuranikerim" target="_blank"><i class="fa-brands fa-github"></i> Kaynak Kod</a>
+      </div>
+    </div>
+    <div class="ezber-panel" id="panel-oku">
+      <div class="settings-body">
+        <div class="settings-row">
+          <label>Sure</label>
+          <select id="oku-surah-select">
+            <option value="">-- Sure seçin --</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <label>Başlangıç / Bitiş Ayet</label>
+          <div class="range-row">
+            <input type="number" id="oku-from" min="1" placeholder="Başlangıç" style="width:110px">
+            <span>—</span>
+            <input type="number" id="oku-to" min="1" placeholder="Bitiş" style="width:110px">
+          </div>
+        </div>
+        <button class="btn-apply" id="apply-oku">
+          <i class="fa-solid fa-eye"></i> <span id="apply-oku-label">Uygula</span>
+        </button>
+        <a class="ezber-github-link" href="https://github.com/mustafakilic13/kuranikerim" target="_blank">
+          <i class="fa-brands fa-github"></i> Kaynak Kod
+        </a>
+      </div>
+    </div>
+    <div class="ezber-panel" id="panel-yaz">
+      <div class="settings-body">
+        <div class="settings-row">
+          <label>Sure</label>
+          <select id="yaz-surah-select">
+            <option value="">-- Sure seçin --</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <label>Başlangıç / Bitiş Ayet</label>
+          <div class="range-row">
+            <input type="number" id="yaz-from" min="1" placeholder="Başlangıç" style="width:110px">
+            <span>—</span>
+            <input type="number" id="yaz-to" min="1" placeholder="Bitiş" style="width:110px">
+          </div>
+        </div>
+        <button class="btn-apply" id="apply-yaz">
+          <i class="fa-solid fa-pen"></i> <span id="apply-yaz-label">Uygula</span>
+        </button>
+        <a class="ezber-github-link" href="https://github.com/mustafakilic13/kuranikerim" target="_blank">
+          <i class="fa-brands fa-github"></i> Kaynak Kod
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+// ===================== ARABIC NUMERALS =====================
+const toArabicNum = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+
+// ===================== STATE =====================
+let currentPage = parseInt(localStorage.getItem('quran_page') || '1');
+let allSurahs = []; // [{number, name, englishName, ayahs:[{number,numberInSurah,text,page,juz,surahNumber}]}]
+let mealData = {}; // key: globalAyahNumber -> {text, numberInSurah, surahNumber}
+let pageMap = {}; // pageNum -> [{surahNumber,surahName,ayahs:[...]}]
+let juzFirstPage = {}; // juzNum -> pageNum
+let surahFirstPage = {}; // surahNum -> {page, firstAyahNum}
+
+let wordData = {}; // kelime meali: {"sura_ayah": [tr1, tr2, ...]}
+let tafsirData = {}; // tefsir: {"sura_ayah": "text" | "ref_key"}
+let tafsirDataLoaded = false;
+let wordDataLoaded = false;
+
+let selectedAyahKey = null; // "surah_ayah"
+let openMealKeys = new Set();
+let openTafsirKeys = new Set();
+let playingKey = null;
+let isPlaying = false;
+let audio = new Audio();
+let playQueue = [];
+let playQueueIndex = 0;
+let playRepeat = 1;
+let playRepeatCurrent = 0;
+let settings = JSON.parse(localStorage.getItem('quran_settings') || '{}');
+// settings: { reciter, surah, from, to, repeat }
+
+let swipeStartX = 0, swipeStartY = 0, isSwiping = false;
+let lastSelectedSurahForModal = null; // for surah modal selection logic
+
+// ===================== TAFSIR DATA =====================
+async function loadTafsirData() {
+  try {
+    const res = await fetch('tafsir.json');
+    if (!res.ok) return;
+    tafsirData = await res.json();
+    tafsirDataLoaded = true;
+  } catch(e) {}
+}
+
+function getTafsir(key) {
+  if (!tafsirDataLoaded) return null;
+  let val = tafsirData[key];
+  if (!val) return null;
+  // Referans mı? (kısa string, underscore içeriyor, harf yok)
+  if (val.length < 15 && /^\d+_\d+$/.test(val)) {
+    val = tafsirData[val] || val;
+  }
+  return val;
+}
+
+// ===================== WORD DATA =====================
+async function loadWordData() {
+  try {
+    const res = await fetch('words.json');
+    if (!res.ok) return; // dosya yoksa sessizce geç
+    wordData = await res.json();
+    wordDataLoaded = true;
+    // Eğer açık bir meal varsa güncelle
+    openMealKeys.forEach(key => refreshWordMeal(key));
+  } catch(e) {
+    // words.json yok veya hata - kelime meali devre dışı
+  }
+}
+
+function refreshWordMeal(key) {
+  const wmEl = document.getElementById('wm-' + key);
+  if (!wmEl) return;
+  const [sn, an] = key.split('_');
+  const words = wordData[key];
+  if (!words || words.length === 0) return;
+  renderWordMeal(wmEl, words);
+}
+
+function renderWordMeal(wmEl, trWords) {
+  const key = wmEl.id.replace('wm-', '');
+  const ayahSpan = document.querySelector(`.ayah-span[data-key="${key}"]`);
+
+  // Ayet metnini DOM'dan al
+  let arWords = [];
+  if (ayahSpan) {
+    const rawText = ayahSpan.textContent;
+    const ARABIC_LETTER = /[\u0621-\u06D5]/;
+    arWords = rawText.split(/\s+/).filter(t => ARABIC_LETTER.test(t));
+  }
+
+  // * olan kelimelerin Arapça metnini önceki karta ekle
+  // Önce kartları oluştur: her kart {arParts: [], tr: string}
+  let cardGroups = [];
+  trWords.forEach((tr, i) => {
+    const ar = arWords[i] || '';
+    const isStar = !tr || tr === '*';
+    if (isStar && cardGroups.length > 0) {
+      // Önceki karta Arapça ekle
+      cardGroups[cardGroups.length - 1].arParts.push(ar);
+    } else {
+      cardGroups.push({ arParts: [ar], tr: isStar ? '' : tr });
+    }
+  });
+
+  const cards = cardGroups.map(g => {
+    const arText = g.arParts.filter(Boolean).join(' ');
+    if (!arText && !g.tr) return '';
+    return `<span class="wbw-word">
+      <span class="wbw-ar">${arText}</span>
+      ${g.tr ? `<span class="wbw-tr">${g.tr}</span>` : ''}
+    </span>`;
+  }).join('');
+
+  if (!cards) return;
+  wmEl.innerHTML = `<div class="wbw-container">${cards}</div>`;
+  wmEl.classList.add('visible');
+}
+
+// ===================== API FETCH =====================
+const BASE = 'https://api.alquran.cloud/v1';
+async function fetchJSON(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('Fetch failed: ' + url);
+  return r.json();
+}
+
+// ===================== INIT =====================
+async function init() {
+  showLoading(true);
+  try {
+    // Load full Quran Arabic + Meal
+    const [arRes, trRes] = await Promise.all([
+      fetchJSON(`${BASE}/quran/quran-uthmani`),
+      fetchJSON(`${BASE}/quran/tr.diyanet`)
+    ]);
+
+    const arSurahs = arRes.data.surahs;
+    const trSurahs = trRes.data.surahs;
+
+    // Build meal lookup & juz/surah page maps
+    arSurahs.forEach((surah, si) => {
+      const trSurah = trSurahs[si];
+      surah.ayahs.forEach((ayah, ai) => {
+        const key = `${surah.number}_${ayah.numberInSurah}`;
+        const globalNum = ayah.number;
+        if (trSurah && trSurah.ayahs[ai]) {
+          mealData[globalNum] = {
+            text: trSurah.ayahs[ai].text,
+            numberInSurah: ayah.numberInSurah,
+            surahNumber: surah.number
+          };
+        }
+        // page map
+        if (!pageMap[ayah.page]) pageMap[ayah.page] = [];
+        // find or create surah block
+        let block = pageMap[ayah.page].find(b => b.surahNumber === surah.number);
+        if (!block) {
+          block = { surahNumber: surah.number, surahName: surah.name, ayahs: [] };
+          pageMap[ayah.page].push(block);
+        }
+        if (surah.number === 2 && ayah.numberInSurah === 72) {
+          ayah = { ...ayah, text: ayah.text.replace('فَٱدَّٰرَْٰٔتُمْ' ,'فَٱدَّٰرَأْتُمْ') };
+        }
+        block.ayahs.push({ ...ayah, surahNumber: surah.number, surahName: surah.name });
+
+        // juz first page
+        if (!juzFirstPage[ayah.juz]) juzFirstPage[ayah.juz] = ayah.page;
+        else juzFirstPage[ayah.juz] = Math.min(juzFirstPage[ayah.juz], ayah.page);
+
+        // surah first page
+        if (!surahFirstPage[surah.number]) {
+          surahFirstPage[surah.number] = { page: ayah.page, firstAyahNum: ayah.numberInSurah };
+        }
+      });
+    });
+
+    allSurahs = arSurahs;
+
+    // API'deki bazı cüz-sayfa eşleşmeleri hatalı - manuel düzelt
+    const JUZ_CORRECT_PAGES = {
+      4:62, 7:122, 11:202, 26:502
+    };
+    Object.entries(JUZ_CORRECT_PAGES).forEach(([juz, page]) => {
+      juzFirstPage[parseInt(juz)] = page;
+    });
+
+    // Kelime meali veritabanını arka planda yükle
+    loadWordData();
+    // Tefsir veritabanını arka planda yükle
+    loadTafsirData();
+
+    buildModals();
+    await loadPage(currentPage, 'first', false);
+  } catch(e) {
+    document.getElementById('quran-content').innerHTML = '<p style="color:red;font-family:sans-serif;padding:20px">Hata: '+e.message+'</p>';
+  }
+  showLoading(false);
+}
+
+function showLoading(v) {
+  document.getElementById('loading').style.display = v ? 'flex' : 'none';
+}
+
+// ===================== PAGE RENDER =====================
+async function loadPage(pageNum, selectMode = 'first', fade = true) {
+  // selectMode: 'first' | {surah, ayah} | null
+  pageNum = Math.max(1, Math.min(604, pageNum));
+  currentPage = pageNum;
+  localStorage.setItem('quran_page', pageNum);
+
+  const blocks = pageMap[pageNum];
+  if (!blocks || blocks.length === 0) return;
+
+  if (fade) {
+    const pc = document.getElementById('page-container');
+    pc.style.opacity = '0';
+    await new Promise(r => setTimeout(r, 150));
+  }
+
+  renderPage(blocks);
+  updateHeader(pageNum, blocks);
+
+  // Determine which ayah to select
+  let selectKey = null;
+  if (selectMode === 'first') {
+    const firstBlock = blocks[0];
+    if (firstBlock && firstBlock.ayahs.length > 0) {
+      selectKey = `${firstBlock.surahNumber}_${firstBlock.ayahs[0].numberInSurah}`;
+    }
+  } else if (selectMode && typeof selectMode === 'object') {
+    selectKey = `${selectMode.surah}_${selectMode.ayah}`;
+  }
+  selectedAyahKey = selectKey;
+
+  if (fade) {
+    const pc = document.getElementById('page-container');
+    pc.style.transition = 'opacity 0.25s';
+    pc.style.opacity = '1';
+    setTimeout(() => pc.style.transition = '', 300);
+  }
+
+  // Apply selection highlight after render
+  setTimeout(() => applySelection(), 10);
+  document.getElementById('page-container').scrollTop = 0;
+
+  // Oku veya yaz modu aktifse sayfada bulanıklığı yeniden uygula
+  if (okuMode) setTimeout(() => applyOkuMode(), 20);
+  if (yazMode) setTimeout(() => applyYazMode(), 20);
+}
+
+const BASMALA_STANDARD = 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ';
+const BASMALA_95_97 = 'بِّسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ';
+const SURENAHMESIZ = new Set([1, 9]); // No basmala shown before (already in text or tawba)
+
+function getBasmalaForSurah(surahNum) {
+  if (surahNum === 95 || surahNum === 97) return BASMALA_95_97;
+  if (surahNum === 1 || surahNum === 9) return null;
+  return BASMALA_STANDARD;
+}
+
+function removeBasmalaFromText(text, surahNum) {
+  if (surahNum === 1 || surahNum === 9) return text;
+  let t = text.trim();
+  // Besmele sonu: رَّحِيمِ (raheem) - tam unicode ile ara
+  const RAHEEM = '\u0631\u0651\u064e\u062d\u0650\u064a\u0645\u0650';
+  const idx = t.indexOf(RAHEEM);
+  if (idx !== -1) {
+    t = t.slice(idx + RAHEEM.length).trim();
+  }
+  return t;
+}
+
+function wrapSpecialChars(text) {
+  // U+06DF (Small High Rounded Zero) - tilavet işareti, sukundan ayırt et
+  return text.replace(/۟/g, '<span class="quran-special">۟</span>');
+}
+
+function renderPage(blocks) {
+  const container = document.getElementById('quran-content');
+  let html = '';
+
+  for (const block of blocks) {
+    const sn = block.surahNumber;
+
+    // Sure başlığı - sadece bu sayfada numberInSurah=1 olan ayet varsa
+    const hasFirstAyah = block.ayahs.some(a => a.numberInSurah === 1);
+    if (hasFirstAyah) {
+      const basmala = getBasmalaForSurah(sn);
+      html += `<div class="surah-header">`;
+      html += `<div class="surah-title-frame"><h1>${block.surahName}</h1></div>`;
+      if (basmala) html += `<div class="basmala">${wrapSpecialChars(basmala)}</div>`;
+      html += `</div>`;
+    }
+
+    // Ayetler - düz yazı (inline)
+    let currentRuku = null;
+    html += `<div class="page-block" data-surah="${sn}" style="text-align:justify;direction:rtl;margin-bottom:8px;">`;
+    for (const ayah of block.ayahs) {
+      if (ayah.ruku !== currentRuku) {
+        if (currentRuku !== null) html += `</div>`;
+        currentRuku = ayah.ruku;
+        const rukuClass = currentRuku % 2 === 0 ? 'ruku-even' : 'ruku-odd';
+        html += `<div class="ruku-group ${rukuClass}" data-ruku="${currentRuku}">`;
+      }
+      let text = ayah.text;
+      // Besmele mantığı: numberInSurah=1 ise başındaki besmeleyi kaldır
+      if (ayah.numberInSurah === 1) {
+        text = removeBasmalaFromText(text, sn);
+      }
+      const key = `${sn}_${ayah.numberInSurah}`;
+      const globalNum = ayah.number;
+      html += `<span class="ayah-block" data-key="${key}" data-global="${globalNum}">`;
+      html += `<span class="ayah-span" data-key="${key}">${wrapSpecialChars(text)}</span>`;
+      html += `<span class="ayah-num-ar" data-key="${key}" data-global="${globalNum}" title="Meal için tıkla">﴿${toArabicNum(ayah.numberInSurah)}﴾</span>`;
+      html += `</span>`;
+      // Meal + Tefsir rows (hidden)
+      html += `<div class="word-meal-row" id="wm-${key}"></div>`;
+      html += `<div class="meal-row" id="meal-${key}">`;
+      html += `<span class="meal-num">${ayah.numberInSurah}.</span>`;
+      const mealTxt = mealData[globalNum] ? mealData[globalNum].text : '';
+      html += `<span class="meal-text">${mealTxt}</span>`;
+      html += `<span class="meal-source">— Diyanet İşleri</span>`;
+      html += `</div>`;
+      html += `<div class="tafsir-toggle" id="tft-${key}">Tefsîrü's-Saʿdî</div>`;
+      html += `<div class="tafsir-row" id="tfs-${key}"></div>`;
+    }
+    if (currentRuku !== null) html += `</div>`;
+    html += `</div>`;
+  }
+
+  container.innerHTML = html;
+  attachPageEvents();
+}
+
+function attachPageEvents() {
+  // Ayet metni tıklama
+  document.querySelectorAll('.ayah-span').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const key = el.dataset.key;
+      if (selectedAyahKey === key) return;
+      selectedAyahKey = key;
+      applySelection();
+    });
+  });
+
+  // Ayet numarası tıklama -> meal
+  document.querySelectorAll('.ayah-num-ar').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const key = el.dataset.key;
+      toggleMeal(key);
+    });
+  });
+
+  // Tefsir toggle
+  document.querySelectorAll('.tafsir-toggle').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const key = el.id.replace('tft-', '');
+      toggleTafsir(key);
+    });
+  });
+}
+
+function applySelection() {
+  document.querySelectorAll('.ayah-span').forEach(el => {
+    el.classList.toggle('selected', el.dataset.key === selectedAyahKey);
+  });
+  // Seçili ayetin suresini header'da güncelle
+  if (selectedAyahKey) {
+    const sn = parseInt(selectedAyahKey.split('_')[0]);
+    const surah = allSurahs.find(s => s.number === sn);
+    if (surah) document.getElementById('hdr-surah-name').textContent = surah.name;
+  }
+}
+
+function closeAllMeals() {
+  openMealKeys.forEach(k => {
+    const m = document.getElementById('meal-' + k);
+    const t = document.getElementById('tft-' + k);
+    const tf = document.getElementById('tfs-' + k);
+    const wm = document.getElementById('wm-' + k);
+    if (m) m.classList.remove('visible');
+    if (t) t.classList.remove('visible');
+    if (tf) { tf.classList.remove('visible'); openTafsirKeys.delete(k); }
+    if (wm) wm.classList.remove('visible');
+  });
+  openMealKeys.clear();
+}
+
+function toggleMeal(key) {
+  const mealEl = document.getElementById('meal-' + key);
+  const tftEl = document.getElementById('tft-' + key);
+  if (!mealEl) return;
+  const wasOpen = openMealKeys.has(key);
+  closeAllMeals();
+  if (!wasOpen) {
+    openMealKeys.add(key);
+    mealEl.classList.add('visible');
+    if (tftEl) tftEl.classList.add('visible');
+    loadWordMeal(key);
+  }
+}
+
+async function loadWordMeal(key) {
+  const wmEl = document.getElementById('wm-' + key);
+  if (!wmEl) return;
+  if (!wordDataLoaded) {
+    // Henüz yüklenmedi - bekle ve tekrar dene
+    await loadWordData();
+  }
+  const words = wordData[key];
+  if (!words || words.length === 0) return;
+  renderWordMeal(wmEl, words);
+}
+
+async function toggleTafsir(key) {
+  const tfsEl = document.getElementById('tfs-' + key);
+  if (!tfsEl) return;
+  if (openTafsirKeys.has(key)) {
+    openTafsirKeys.delete(key);
+    tfsEl.classList.remove('visible');
+    return;
+  }
+  openTafsirKeys.add(key);
+  tfsEl.classList.add('visible');
+  if (tfsEl.dataset.loaded) return;
+  tfsEl.dataset.loaded = '1';
+
+  if (!tafsirDataLoaded) await loadTafsirData();
+  const text = getTafsir(key);
+  if (text) {
+    // Tefsir metnini paragraf paragraf göster
+    const formatted = text
+      .replace(/\s*\n\s*/g, '\n')
+      .trim()
+      .split('\n')
+      .filter(l => l.trim())
+      .map(l => `<p style="margin-bottom:6px">${l.trim()}</p>`)
+      .join('');
+    tfsEl.innerHTML = formatted || text;
+  } else {
+    tfsEl.textContent = 'Bu ayet için tefsir bulunamadı.';
+  }
+}
+
+// ===================== HEADER UPDATE =====================
+function updateHeader(pageNum, blocks) {
+  const firstBlock = blocks[0];
+  const surahName = firstBlock ? firstBlock.surahName : '—';
+  // Doğru cüzü juzFirstPage tablosundan tersine çevirerek bul
+  let juzNum = 1;
+  for (let j = 30; j >= 1; j--) {
+    if (juzFirstPage[j] && pageNum >= juzFirstPage[j]) {
+      juzNum = j; break;
+    }
+  }
+  document.getElementById('hdr-surah-name').textContent = surahName;
+  document.getElementById('hdr-page-num').textContent = toArabicNum(pageNum);
+  document.getElementById('hdr-juz-num').textContent = toArabicNum(juzNum);
+}
+
+// ===================== MODALS =====================
+function buildModals() {
+  // SURAH LIST
+  const surahList = document.getElementById('surah-list');
+  surahList.innerHTML = allSurahs.map(s =>
+    `<div class="modal-item" data-surah="${s.number}">
+      <span class="num">${toArabicNum(s.number)}</span>
+      <span class="name">${s.name}</span>
+    </div>`
+  ).join('');
+  surahList.querySelectorAll('.modal-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const sn = parseInt(el.dataset.surah);
+      closeAllModals();
+      lastSelectedSurahForModal = sn;
+      const info = surahFirstPage[sn];
+      if (info) loadPage(info.page, { surah: sn, ayah: 1 });
+    });
+  });
+
+  // SURAH FILTER
+  document.getElementById('surah-filter').addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    surahList.querySelectorAll('.modal-item').forEach(el => {
+      const name = el.querySelector('.name').textContent.toLowerCase();
+      const sub = el.querySelector('.sub').textContent.toLowerCase();
+      const num = el.querySelector('.num').textContent;
+      el.style.display = (name.includes(q) || sub.includes(q) || num.includes(q)) ? '' : 'none';
+    });
+  });
+
+  // PAGE LIST
+  const pageList = document.getElementById('page-list');
+  pageList.innerHTML = Array.from({length: 604}, (_, i) => i + 1).map(p =>
+    `<div class="modal-item" data-page="${p}">
+      <span class="num">${toArabicNum(p)}</span>
+      <span class="name">الصفحة ${toArabicNum(p)}</span>
+    </div>`
+  ).join('');
+  pageList.querySelectorAll('.modal-item').forEach(el => {
+    el.addEventListener('click', () => {
+      closeAllModals();
+      loadPage(parseInt(el.dataset.page), 'first');
+    });
+  });
+
+  // PAGE FILTER
+  document.getElementById('page-filter').addEventListener('input', e => {
+    const q = e.target.value.trim();
+    pageList.querySelectorAll('.modal-item').forEach(el => {
+      el.style.display = el.dataset.page.includes(q) ? '' : 'none';
+    });
+  });
+
+  // JUZ LIST
+  const juzList = document.getElementById('juz-list');
+  const juzNames = ['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر',
+    'الحادي عشر','الثاني عشر','الثالث عشر','الرابع عشر','الخامس عشر','السادس عشر','السابع عشر','الثامن عشر',
+    'التاسع عشر','العشرون','الحادي والعشرون','الثاني والعشرون','الثالث والعشرون','الرابع والعشرون',
+    'الخامس والعشرون','السادس والعشرون','السابع والعشرون','الثامن والعشرون','التاسع والعشرون','الثلاثون'];
+  juzList.innerHTML = Array.from({length: 30}, (_, i) => i + 1).map(j =>
+    `<div class="modal-item" data-juz="${j}">
+      <span class="num">${toArabicNum(j)}</span>
+      <span class="name">الجزء ${juzNames[j-1] || toArabicNum(j)}</span>
+    </div>`
+  ).join('');
+  juzList.querySelectorAll('.modal-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const jn = parseInt(el.dataset.juz);
+      closeAllModals();
+      const pg = juzFirstPage[jn];
+      if (pg) loadPage(pg, 'first');
+    });
+  });
+
+  // SETTINGS surah list
+  const rangeSurahSel = document.getElementById('range-surah-select');
+  allSurahs.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.number;
+    opt.textContent = `${toArabicNum(s.number)} - ${s.name}`;
+    rangeSurahSel.appendChild(opt);
+  });
+
+  // Load saved settings
+  if (settings.reciter) document.getElementById('reciter-select').value = settings.reciter;
+  if (settings.surah) document.getElementById('range-surah-select').value = settings.surah;
+  if (settings.from) document.getElementById('range-from').value = settings.from;
+  if (settings.to) document.getElementById('range-to').value = settings.to;
+  if (settings.repeat) document.getElementById('repeat-count').value = settings.repeat;
+  if (settings.repeatAll) document.getElementById('repeat-all-count').value = settings.repeatAll;
+
+  // Yaz sekmesi sure listesi
+  const yazSurahSel = document.getElementById('yaz-surah-select');
+  allSurahs.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.number;
+    opt.textContent = `${toArabicNum(s.number)} - ${s.name}`;
+    yazSurahSel.appendChild(opt);
+  });
+  document.getElementById('yaz-surah-select').addEventListener('change', function() {
+    const sn = parseInt(this.value);
+    if (!sn) { document.getElementById('yaz-from').value = ''; document.getElementById('yaz-to').value = ''; return; }
+    const surah = allSurahs.find(s => s.number === sn);
+    if (!surah) return;
+    document.getElementById('yaz-from').value = 1;
+    document.getElementById('yaz-to').value = surah.ayahs.length;
+  });
+
+  // Oku sekmesi sure listesi
+  const okuSurahSel = document.getElementById('oku-surah-select');
+  allSurahs.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.number;
+    opt.textContent = `${toArabicNum(s.number)} - ${s.name}`;
+    okuSurahSel.appendChild(opt);
+  });
+  document.getElementById('oku-surah-select').addEventListener('change', function() {
+    const sn = parseInt(this.value);
+    if (!sn) { document.getElementById('oku-from').value = ''; document.getElementById('oku-to').value = ''; return; }
+    const surah = allSurahs.find(s => s.number === sn);
+    if (!surah) return;
+    document.getElementById('oku-from').value = 1;
+    document.getElementById('oku-to').value = surah.ayahs.length;
+  });
+
+  // Sure seçilince başlangıç/bitiş ayet alanlarını otomatik doldur
+  document.getElementById('range-surah-select').addEventListener('change', function() {
+    const sn = parseInt(this.value);
+    if (!sn) {
+      document.getElementById('range-from').value = '';
+      document.getElementById('range-to').value = '';
+      document.getElementById('range-from').placeholder = 'Başlangıç';
+      document.getElementById('range-to').placeholder = 'Bitiş';
+      return;
+    }
+    const surah = allSurahs.find(s => s.number === sn);
+    if (!surah) return;
+    const firstAyah = 1;
+    const lastAyah = surah.ayahs.length;
+    document.getElementById('range-from').value = firstAyah;
+    document.getElementById('range-to').value = lastAyah;
+  });
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+function closeAllModals() {
+  document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+}
+document.querySelectorAll('.modal-close').forEach(btn => {
+  btn.addEventListener('click', () => closeModal(btn.dataset.modal));
+});
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeModal(overlay.id);
+  });
+});
+
+// Header clicks - open modal and highlight+scroll to active item
+document.getElementById('hdr-surah').addEventListener('click', () => {
+  openModal('surah-modal');
+  const blocks = pageMap[currentPage];
+  if (!blocks || !blocks[0]) return;
+  // Seçili ayet varsa onun suresini, yoksa sayfanın ilk suresini kullan
+  let activeSurah = blocks[0].surahNumber;
+  if (selectedAyahKey) {
+    const parts = selectedAyahKey.split('_');
+    if (parts.length === 2) activeSurah = parseInt(parts[0]);
+  }
+  highlightModalItem('surah-list', '[data-surah="' + activeSurah + '"]');
+});
+document.getElementById('hdr-page').addEventListener('click', () => {
+  openModal('page-modal');
+  highlightModalItem('page-list', '[data-page="' + currentPage + '"]');
+});
+document.getElementById('hdr-juz').addEventListener('click', () => {
+  openModal('juz-modal');
+  // juzFirstPage tablosundan doğru cüzü hesapla (updateHeader ile aynı mantık)
+  let juz = 1;
+  for (let j = 30; j >= 1; j--) {
+    if (juzFirstPage[j] && currentPage >= juzFirstPage[j]) {
+      juz = j; break;
+    }
+  }
+  highlightModalItem('juz-list', '[data-juz="' + juz + '"]');
+});
+
+function highlightModalItem(listId, selector) {
+  const list = document.getElementById(listId);
+  if (!list) return;
+  // Remove previous active
+  list.querySelectorAll('.modal-item.active').forEach(el => el.classList.remove('active'));
+  // Find and activate
+  const el = list.querySelector(selector);
+  if (!el) return;
+  el.classList.add('active');
+  // Scroll to center after modal animation
+  setTimeout(() => {
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }, 60);
+}
+
+// ===================== SEARCH =====================
+let searchBarOpen = false;
+document.getElementById('btn-search').addEventListener('click', () => {
+  searchBarOpen = !searchBarOpen;
+  document.getElementById('search-bar').classList.toggle('open', searchBarOpen);
+  if (searchBarOpen) document.getElementById('search-input-bar').focus();
+});
+document.getElementById('sb-close').addEventListener('click', () => {
+  searchBarOpen = false;
+  document.getElementById('search-bar').classList.remove('open');
+});
+document.getElementById('sb-expand').addEventListener('click', () => {
+  document.getElementById('search-query-input').value = document.getElementById('search-input-bar').value;
+  openModal('search-modal');
+});
+document.getElementById('sb-go').addEventListener('click', doSearch);
+document.getElementById('search-input-bar').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+document.getElementById('search-query-input').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+// Arama state
+let searchAllResults = [];
+let searchPageSize = 33;
+let searchOffset = 0;
+
+function highlightQ(text, q) {
+  if (!q || !text) return text;
+  try {
+    const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    return text.replace(re, '<mark style="background:#fff3cd;padding:0 2px;border-radius:2px">$&</mark>');
+  } catch(e) { return text; }
+}
+
+function navigateToAyah(sn, an) {
+  let targetPage = surahFirstPage[sn] ? surahFirstPage[sn].page : 1;
+  for (const [pg, blocks] of Object.entries(pageMap)) {
+    for (const block of blocks) {
+      if (block.surahNumber === sn && block.ayahs.some(a => a.numberInSurah === an)) {
+        targetPage = parseInt(pg); break;
+      }
+    }
+  }
+  loadPage(targetPage, {surah: sn, ayah: an});
+}
+
+function renderSearchResults(q) {
+  const rList = document.getElementById('search-results');
+  const page = searchAllResults.slice(searchOffset, searchOffset + searchPageSize);
+  let html = page.map(r => {
+    const surahName = allSurahs[r.sura-1] ? allSurahs[r.sura-1].name : '';
+    let typeLabel, typeClass, textHtml;
+    if (r.type === 'quran') {
+      typeLabel = "📖 Kur'an-ı Kerim"; typeClass = 'sr-type-quran';
+      textHtml = `<div class="sr-text" style="font-family:var(--font-quran);font-size:18px;direction:rtl">${highlightQ(r.text, q)}</div>`;
+    } else if (r.type === 'meal') {
+      typeLabel = '📗 Meal'; typeClass = 'sr-type-meal';
+      textHtml = `<div class="sr-text">${highlightQ(r.text, q)}</div>`;
+    } else {
+      typeLabel = '📝 Tefsir'; typeClass = 'sr-type-tafsir';
+      textHtml = `<div class="sr-text sr-tafsir-text">${r.text}</div>`;
+    }
+    return `<div class="search-result-item" data-sura="${r.sura}" data-ayah="${r.ayah}">
+      ${textHtml}
+      <div class="sr-meta-ar">${surahName}</div>
+      <div class="sr-meta ${typeClass}">${typeLabel} &nbsp;|&nbsp; آية: ${r.ayah}</div>
+    </div>`;
+  }).join('');
+
+  const remaining = searchAllResults.length - searchOffset - searchPageSize;
+  if (remaining > 0) {
+    html += `<div class="sr-more-btn" id="sr-more">Devamı... (${remaining} sonuç daha)</div>`;
+  }
+
+  if (searchOffset === 0) {
+    rList.innerHTML = html;
+  } else {
+    const oldMore = rList.querySelector('#sr-more');
+    if (oldMore) oldMore.remove();
+    rList.insertAdjacentHTML('beforeend', html);
+  }
+
+  rList.querySelectorAll('.search-result-item:not([data-bound])').forEach(el => {
+    el.dataset.bound = '1';
+    el.addEventListener('click', () => navigateToAyah(parseInt(el.dataset.sura), parseInt(el.dataset.ayah)));
+  });
+
+  const moreBtn = document.getElementById('sr-more');
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      searchOffset += searchPageSize;
+      renderSearchResults(q);
+    });
+  }
+}
+
+async function doSearch() {
+  const q = (document.getElementById('search-query-input').value || document.getElementById('search-input-bar').value).trim();
+  if (!q) return;
+  document.getElementById('search-query-input').value = q;
+  document.getElementById('search-input-bar').value = q;
+  const isArabic = /[\u0600-\u06FF]/.test(q);
+  const edition = isArabic ? 'quran-uthmani' : 'tr.diyanet';
+  const url = `${BASE}/search/${encodeURIComponent(q)}/all/${edition}`;
+  document.getElementById('search-count').textContent = 'Aranıyor...';
+  document.getElementById('search-results').innerHTML = '';
+  searchAllResults = [];
+  searchOffset = 0;
+  if (!document.getElementById('search-modal').classList.contains('open')) openModal('search-modal');
+  try {
+    const [apiRes, tafsirResults] = await Promise.all([
+      fetchJSON(url),
+      isArabic ? [] : searchTafsir(q)
+    ]);
+    const apiMatches = apiRes.data ? apiRes.data.matches : [];
+    const apiType = isArabic ? 'quran' : 'meal';
+    apiMatches.forEach(m => searchAllResults.push({ type: apiType, sura: m.surah.number, ayah: m.numberInSurah, text: m.text }));
+    tafsirResults.forEach(t => searchAllResults.push({ type: 'tafsir', sura: t.sura, ayah: t.ayah, text: t.snippet }));
+    const total = searchAllResults.length;
+    const qCount = searchAllResults.filter(r => r.type === 'quran').length;
+    const mCount = searchAllResults.filter(r => r.type === 'meal').length;
+    const tCount = searchAllResults.filter(r => r.type === 'tafsir').length;
+    let countLabel = `${total} Sonuç`;
+    const parts = [];
+    if (qCount) parts.push(`${qCount} Kur'an`);
+    if (mCount) parts.push(`${mCount} meal`);
+    if (tCount) parts.push(`${tCount} tefsir`);
+    if (parts.length) countLabel += ` (${parts.join(', ')})`;
+    document.getElementById('search-count').textContent = countLabel;
+    renderSearchResults(q);
+  } catch(e) {
+    document.getElementById('search-count').textContent = 'Hata: ' + e.message;
+  }
+}
+
+function searchTafsir(q) {
+  if (!tafsirDataLoaded || !q) return [];
+  const qLower = q.toLowerCase().trim();
+  const results = [];
+  let re;
+  try { re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'); } catch(e) { re = null; }
+  for (const [key, text] of Object.entries(tafsirData)) {
+    if (!text || (text.length < 15 && /^\d+_\d+$/.test(text))) continue;
+    const idx = text.toLowerCase().indexOf(qLower);
+    if (idx === -1) continue;
+    const [sura, ayah] = key.split('_').map(Number);
+    const start = Math.max(0, idx - 60);
+    const end = Math.min(text.length, idx + qLower.length + 120);
+    let snippet = (start > 0 ? '...' : '') + text.slice(start, end).trim() + (end < text.length ? '...' : '');
+    if (re) snippet = snippet.replace(re, '<mark style="background:#fff3cd;padding:0 2px;border-radius:2px">$&</mark>');
+    results.push({ sura, ayah, snippet });
+  }
+  return results;
+}
+
+
+// ===================== EZBER MODAL =====================
+document.getElementById('btn-menu').addEventListener('click', () => {
+  // Buton labellarını mevcut moda göre güncelle
+  document.getElementById('apply-oku-label').textContent = okuMode ? 'Modu Kapat' : 'Uygula';
+  document.getElementById('apply-yaz-label').textContent = yazMode ? 'Modu Kapat' : 'Uygula';
+  openModal('ezber-modal');
+});
+
+// Sekme geçişi
+document.querySelectorAll('.ezber-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.ezber-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.ezber-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    resetEzberForm();
+  });
+});
+
+function resetEzberForm() {
+  document.getElementById('range-surah-select').value = '';
+  document.getElementById('range-from').value = '';
+  document.getElementById('range-to').value = '';
+  document.getElementById('repeat-count').value = 1;
+  document.getElementById('repeat-all-count').value = 1;
+  document.getElementById('oku-surah-select').value = '';
+  document.getElementById('oku-from').value = '';
+  document.getElementById('oku-to').value = '';
+  document.getElementById('yaz-surah-select').value = '';
+  document.getElementById('yaz-from').value = '';
+  document.getElementById('yaz-to').value = '';
+}
+
+document.getElementById('apply-settings').addEventListener('click', () => {
+  const surahVal = document.getElementById('range-surah-select').value;
+  const fromVal = parseInt(document.getElementById('range-from').value) || null;
+  const toVal = parseInt(document.getElementById('range-to').value) || null;
+  if (!surahVal || !fromVal || !toVal) {
+    alert('Lütfen sure, başlangıç ve bitiş ayetini seçin.');
+    return;
+  }
+  settings = {
+    reciter: document.getElementById('reciter-select').value,
+    surah: surahVal,
+    from: fromVal,
+    to: toVal,
+    repeat: parseInt(document.getElementById('repeat-count').value) || 1,
+    repeatAll: parseInt(document.getElementById('repeat-all-count').value) || 1
+  };
+  localStorage.setItem('quran_settings', JSON.stringify(settings));
+  closeModal('ezber-modal');
+
+  // Seçilen surenin ilk ayetinin bulunduğu sayfayı aç
+  const sn = parseInt(surahVal);
+  // fromVal ayetini içeren sayfayı bul
+  let targetPage = surahFirstPage[sn] ? surahFirstPage[sn].page : 1;
+  for (const [pg, blocks] of Object.entries(pageMap)) {
+    for (const block of blocks) {
+      if (block.surahNumber === sn && block.ayahs.some(a => a.numberInSurah === fromVal)) {
+        targetPage = parseInt(pg);
+        break;
+      }
+    }
+  }
+  // Sayfayı yükle, sonra ezber modunda çalmaya başla
+  loadPage(targetPage, { surah: sn, ayah: fromVal }, true).then(() => {
+    if (isPlaying) stopPlay();
+    startEzberPlay();
+  });
+  resetEzberForm();
+});
+
+// ===================== AUDIO =====================
+document.getElementById('btn-play').addEventListener('click', () => {
+  if (isPlaying) {
+    stopPlay();
+  } else {
+    startPagePlay(); // Sayfa oynatma - bağımsız
+  }
+});
+
+// Sayfa bazlı oynatma (Başlat butonu) - seçili ayetten tekrarsız sıralı
+function startPagePlay() {
+  isPlaying = true;
+  basmalaPlayedForSurah = new Set();
+  // ikon kaldırıldı
+  document.getElementById('play-label').textContent = 'صَدَقَ اللَّهُ الْعَظِيمُ';
+  document.getElementById('btn-play').classList.add('active');
+
+  // Sıradan kuyruk: seçili ayetten itibaren sayfalar boyunca
+  playQueue = [];
+  playRepeat = 1;
+  const blocks = pageMap[currentPage];
+  if (!blocks) return;
+  let found = !selectedAyahKey;
+  for (const block of blocks) {
+    for (const ayah of block.ayahs) {
+      const key = `${block.surahNumber}_${ayah.numberInSurah}`;
+      if (!found && key === selectedAyahKey) found = true;
+      if (found) playQueue.push({ surah: block.surahNumber, ayah: ayah.numberInSurah });
+    }
+  }
+  let pg = currentPage + 1;
+  while (playQueue.length < 50 && pg <= 604) {
+    const nb = pageMap[pg];
+    if (nb) nb.forEach(bl => bl.ayahs.forEach(a => playQueue.push({ surah: bl.surahNumber, ayah: a.numberInSurah })));
+    pg++;
+  }
+  playQueueIndex = 0;
+  playRepeatCurrent = 0;
+  ezberMode = false;
+  playNextAyah();
+}
+
+// ===================== AUDIO ENGINE =====================
+let basmalaPlayedForSurah = new Set();
+let ezberMode = false;
+
+// Ezber çalma state
+let ezberSurah = 0;
+let ezberFrom = 0;
+let ezberTo = 0;
+let ezberRepeat = 1;      // her ayet kaç kez
+let ezberRepeatAll = 1;   // tüm aralık kaç kez (aynısını tekrar)
+let ezberRepeatAllCurrent = 0;
+let ezberCurrentAyah = 0; // şu an çalınan ayet index (from'dan itibaren)
+let ezberCurrentRepeat = 0; // şu an kaçıncı tekrarda
+let ezberReviewPhase = false; // kümülatif tekrar aşaması mı?
+let ezberReviewIndex = 0;    // review'da kaçıncı ayette
+
+function stopPlay() {
+  isPlaying = false;
+  audio.pause();
+  audio.src = '';
+  audio.onended = null;
+  // ikon kaldırıldı
+  document.getElementById('play-label').textContent = 'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ';
+  document.getElementById('btn-play').classList.remove('active');
+  if (playingKey) {
+    const el = document.querySelector(`.ayah-span[data-key="${playingKey}"]`);
+    if (el) { el.classList.remove('playing'); el.classList.remove('selected'); }
+    playingKey = null;
+  }
+}
+
+// Besmele çalınacak mı? Sure 1/9 ve başlangıç ayet=1 ise hayır
+function ezberBasmalaGerekli() {
+  return !((ezberSurah === 1 || ezberSurah === 9) && ezberFrom === 1);
+}
+
+// ── Ezber modu başlatma ────────────────────────────────────────────────────
+function startEzberPlay() {
+  isPlaying = true;
+  ezberMode = true;
+  basmalaPlayedForSurah = new Set();
+  ezberSurah = parseInt(settings.surah);
+  ezberFrom = settings.from;
+  ezberTo = settings.to;
+  ezberRepeat = settings.repeat || 1;
+  ezberRepeatAll = settings.repeatAll || 1;
+  ezberRepeatAllCurrent = 0;
+  ezberCurrentAyah = 0;
+  ezberCurrentRepeat = 0;
+  ezberReviewPhase = false;
+  ezberReviewIndex = 0;
+
+  // ikon kaldırıldı
+  document.getElementById('play-label').textContent = 'صَدَقَ اللَّهُ الْعَظِيمُ';
+  document.getElementById('btn-play').classList.add('active');
+
+  const reciter = settings.reciter || 'Husary_128kbps_Mujawwad';
+  // Önce euzu çal
+  playAudioUrl(`https://everyayah.com/data/${reciter}/001000.mp3`, () => {
+    // Sonra besmele (sure 1/9 ve başlangıç=1 ise atla)
+    if (ezberBasmalaGerekli()) {
+      playAudioUrl(`https://everyayah.com/data/${reciter}/001001.mp3`, () => ezberStep());
+    } else {
+      ezberStep();
+    }
+  });
+}
+
+// ── Ezber adım motoru ──────────────────────────────────────────────────────
+// State makinesi: her çağrıda bir sonraki sesi çalar
+// Faz 1 (ana): mevcut ayeti ezberRepeat kez çal
+// Faz 2 (review): besmele + ayet[from..currentAyah] birer kez
+// Her iki faz bitince currentAyah++ → tekrar Faz1
+// Tüm aralık bitince repeatAll kontrolü
+
+function ezberStep() {
+  if (!isPlaying) return;
+  const reciter = settings.reciter || 'Husary_128kbps_Mujawwad';
+  const totalAyahs = ezberTo - ezberFrom + 1;
+
+  if (ezberReviewPhase) {
+    // reviewIndex: -1 = besmele bekliyor, 0+ = o index'teki ayeti çal
+    if (ezberReviewIndex < 0) {
+      // Besmele çal, index'i 0'a çek
+      if (ezberBasmalaGerekli()) {
+        playAudioUrl(`https://everyayah.com/data/${reciter}/001001.mp3`, () => {
+          ezberReviewIndex = 0;
+          ezberStep();
+        });
+        return;
+      } else {
+        ezberReviewIndex = 0;
+      }
+    }
+
+    if (ezberReviewIndex <= ezberCurrentAyah) {
+      // Bu index'teki ayeti çal
+      const ayahNum = ezberFrom + ezberReviewIndex;
+      highlightAyah(ezberSurah, ayahNum, reciter);
+      playAudioUrl(ayahUrl(ezberSurah, ayahNum, reciter), () => {
+        ezberReviewIndex++;
+        ezberStep();
+      });
+    } else {
+      // Review bitti → bir sonraki ana ayete geç
+      ezberReviewPhase = false;
+      ezberCurrentAyah++;
+      ezberCurrentRepeat = 0;
+
+      if (ezberCurrentAyah >= totalAyahs) {
+        // Tüm aralık tamamlandı
+        ezberRepeatAllCurrent++;
+        if (ezberRepeatAllCurrent < ezberRepeatAll) {
+          // Aynısını tekrar: başa dön, euzu+besmele
+          ezberCurrentAyah = 0;
+          ezberCurrentRepeat = 0;
+          playAudioUrl(`https://everyayah.com/data/${reciter}/001000.mp3`, () => {
+            if (ezberBasmalaGerekli()) {
+              playAudioUrl(`https://everyayah.com/data/${reciter}/001001.mp3`, () => ezberStep());
+            } else {
+              ezberStep();
+            }
+          });
+        } else {
+          stopPlay();
+        }
+        return;
+      }
+      ezberStep(); // Sonraki ayetin ana fazı
+    }
+    return;
+  }
+
+  // ── Ana faz: mevcut ayeti ezberRepeat kez çal ──
+  if (ezberCurrentAyah >= totalAyahs) { stopPlay(); return; }
+
+  const ayahNum = ezberFrom + ezberCurrentAyah;
+  highlightAyah(ezberSurah, ayahNum, reciter);
+  playAudioUrl(ayahUrl(ezberSurah, ayahNum, reciter), () => {
+    ezberCurrentRepeat++;
+    if (ezberCurrentRepeat < ezberRepeat) {
+      ezberStep(); // Aynı ayeti tekrar
+    } else {
+      // Tekrar bitti → review fazına gir
+      ezberCurrentRepeat = 0;
+      ezberReviewPhase = true;
+      ezberReviewIndex = -1; // -1: önce besmele
+      ezberStep();
+    }
+  });
+}
+
+// ── Yardımcılar ───────────────────────────────────────────────────────────
+function ayahUrl(surah, ayah, reciter) {
+  return `https://everyayah.com/data/${reciter}/${String(surah).padStart(3,'0')}${String(ayah).padStart(3,'0')}.mp3`;
+}
+
+function playAudioUrl(url, onEnd) {
+  if (!isPlaying) return;
+  audio.onended = null;
+  audio.src = url;
+  audio.onended = () => { if (isPlaying) onEnd(); };
+  audio.play().catch(() => {});
+}
+
+// Oku modu için bağımsız ses çalma (isPlaying kontrolü yok)
+function playOkuAudio(url, onEnd) {
+  audio.onended = null;
+  audio.src = url;
+  audio.onended = () => { if (onEnd) onEnd(); };
+  audio.play().catch(() => {});
+}
+
+function highlightAyah(surah, ayah, reciter) {
+  if (playingKey) {
+    const prev = document.querySelector(`.ayah-span[data-key="${playingKey}"]`);
+    if (prev) { prev.classList.remove('playing'); prev.classList.remove('selected'); }
+  }
+  const key = `${surah}_${ayah}`;
+  playingKey = key;
+  selectedAyahKey = key;
+  applySelection();
+  const el = document.querySelector(`.ayah-span[data-key="${key}"]`);
+  if (el) {
+    el.classList.add('playing');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+// Sayfa (Başlat) modu - basit sıralı tekrarsız ──────────────────────────
+function playNextAyah() {
+  if (!isPlaying) return;
+  if (playQueueIndex >= playQueue.length) { stopPlay(); return; }
+  const item = playQueue[playQueueIndex];
+  const reciter = 'Husary_128kbps_Mujawwad';
+
+  // Sure 1. ayetinde euzu/besmele (sadece sayfa modunda)
+  if (item.ayah === 1 && !basmalaPlayedForSurah.has(item.surah)) {
+    basmalaPlayedForSurah.add(item.surah);
+    if (item.surah === 1) {
+      // Sure 1: euzu çal, besmele yok (ayet metninde zaten var)
+      playAudioUrl(`https://everyayah.com/data/${reciter}/001000.mp3`, () => playCurrentAyah(item, reciter));
+    } else if (item.surah === 9) {
+      // Sure 9: euzu da besmele de yok
+      playCurrentAyah(item, reciter);
+    } else {
+      // Diğer sureler: besmele çal
+      playAudioUrl(`https://everyayah.com/data/${reciter}/001001.mp3`, () => playCurrentAyah(item, reciter));
+    }
+    return;
+  }
+  playCurrentAyah(item, reciter);
+}
+
+function playCurrentAyah(item, reciter) {
+  if (!isPlaying) return;
+  const surahStr = String(item.surah).padStart(3, '0');
+  const ayahStr = String(item.ayah).padStart(3, '0');
+  const url = `https://everyayah.com/data/${reciter}/${surahStr}${ayahStr}.mp3`;
+
+  // Highlight
+  if (playingKey) {
+    const prev = document.querySelector(`.ayah-span[data-key="${playingKey}"]`);
+    if (prev) { prev.classList.remove('playing'); prev.classList.remove('selected'); }
+  }
+  const key = `${item.surah}_${item.ayah}`;
+  playingKey = key;
+  selectedAyahKey = key;
+  applySelection();
+  const el = document.querySelector(`.ayah-span[data-key="${key}"]`);
+  if (el) {
+    el.classList.add('playing');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  audio.src = url;
+  audio.play().catch(() => {});
+  audio.onended = () => {
+    playRepeatCurrent++;
+    if (playRepeatCurrent < playRepeat) {
+      audio.play().catch(() => {});
+    } else {
+      playRepeatCurrent = 0;
+      playQueueIndex++;
+      // Check if next ayah is on different page
+      if (playQueueIndex < playQueue.length) {
+        const next = playQueue[playQueueIndex];
+        const nextKey = `${next.surah}_${next.ayah}`;
+        const nextEl = document.querySelector(`.ayah-span[data-key="${nextKey}"]`);
+        if (!nextEl) {
+          // Find page for next ayah
+          let targetPage = currentPage;
+          for (const [pg, blocks] of Object.entries(pageMap)) {
+            for (const block of blocks) {
+              if (block.surahNumber === next.surah && block.ayahs.some(a => a.numberInSurah === next.ayah)) {
+                targetPage = parseInt(pg);
+                break;
+              }
+            }
+          }
+          if (targetPage !== currentPage) {
+            loadPage(targetPage, { surah: next.surah, ayah: next.ayah }).then(() => {
+              setTimeout(() => playNextAyah(), 300);
+            });
+            return;
+          }
+        }
+        playNextAyah();
+      } else {
+        stopPlay();
+      }
+    }
+  };
+}
+
+// ===================== OKU MODU =====================
+let okuMode = false;
+let okuSurah = 0, okuFrom = 0, okuTo = 0;
+let okuCurrentAyah = 0; // from'dan offset
+
+document.getElementById('apply-oku').addEventListener('click', () => {
+  // Mod aktifse iptal et
+  if (okuMode) {
+    okuMode = false;
+    // Tüm bulanıklıkları kaldır
+    document.querySelectorAll('.ayah-blur').forEach(el => el.classList.remove('ayah-blur'));
+    document.querySelectorAll('.oku-active-border').forEach(el => el.classList.remove('oku-active-border'));
+    document.getElementById('apply-oku-label').textContent = 'Uygula';
+    closeModal('ezber-modal');
+    return;
+  }
+  const surahVal = document.getElementById('oku-surah-select').value;
+  const fromVal = parseInt(document.getElementById('oku-from').value) || null;
+  const toVal = parseInt(document.getElementById('oku-to').value) || null;
+  if (!surahVal || !fromVal || !toVal) {
+    alert('Lütfen sure, başlangıç ve bitiş ayetini seçin.');
+    return;
+  }
+  okuSurah = parseInt(surahVal);
+  okuFrom = fromVal;
+  okuTo = toVal;
+  closeModal('ezber-modal');
+  resetEzberForm();
+  document.getElementById('apply-oku-label').textContent = 'Modu Kapat';
+
+  // İlgili sayfayı bul ve git
+  let targetPage = surahFirstPage[okuSurah] ? surahFirstPage[okuSurah].page : 1;
+  for (const [pg, blocks] of Object.entries(pageMap)) {
+    for (const block of blocks) {
+      if (block.surahNumber === okuSurah && block.ayahs.some(a => a.numberInSurah === okuFrom)) {
+        targetPage = parseInt(pg);
+        break;
+      }
+    }
+  }
+  loadPage(targetPage, { surah: okuSurah, ayah: okuFrom }, true).then(() => {
+    okuMode = true;
+    okuCurrentAyah = 0;
+    applyOkuMode();
+  });
+});
+
+function showOkuTooltip(el, text) {
+  // Mevcut tooltip varsa kaldır
+  const existing = document.getElementById('oku-tooltip');
+  if (existing) existing.remove();
+
+  const tip = document.createElement('div');
+  tip.id = 'oku-tooltip';
+  tip.textContent = text;
+  tip.style.cssText = `
+    position: fixed; z-index: 500;
+    background: #1a3a2a; color: #e8d9b0;
+    font-family: sans-serif; font-size: 13px;
+    padding: 4px 10px; border-radius: 6px;
+    border: 1px solid var(--gold); pointer-events: none;
+    white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  `;
+  document.body.appendChild(tip);
+
+  // Konumlandır - elementin üstünde
+  const rect = el.getBoundingClientRect();
+  tip.style.left = Math.min(rect.left, window.innerWidth - tip.offsetWidth - 10) + 'px';
+  tip.style.top = (rect.top - tip.offsetHeight - 6) + 'px';
+
+  // 1.5 saniye sonra kaldır
+  setTimeout(() => tip.remove(), 1500);
+}
+
+function applyOkuMode() {
+  if (!okuMode) return;
+  // Tüm seçili ayet aralığını bulanıklaştır
+  for (let an = okuFrom; an <= okuTo; an++) {
+    const key = `${okuSurah}_${an}`;
+    const block = document.querySelector(`.ayah-block[data-key="${key}"]`);
+    if (!block) continue;
+    const span = block.querySelector('.ayah-span');
+    if (!span) continue;
+    if (an - okuFrom === okuCurrentAyah) {
+      // Aktif ayet: blur ekle + kelimelere böl
+      span.classList.remove('ayah-active-oku');
+      wrapWordsForOku(span, key);
+      block.classList.add('ayah-blur');
+    } else if (an - okuFrom < okuCurrentAyah) {
+      // Geçmiş ayetler: temiz göster
+      block.classList.remove('ayah-blur');
+    } else {
+      // İlerideki ayetler: bulanık
+      block.classList.add('ayah-blur');
+    }
+  }
+  // Aktif ayetin ilk tıklamayı bekle
+  activateOkuAyah();
+}
+
+function wrapWordsForOku(span, key) {
+  // words.json'daki cardGroups mantığıyla birebir aynı gruplamayı kullan
+  // renderWordMeal ile senkronize - her oku-word bir kart = bir kelime grubu
+
+  const ARABIC_LETTER = /[\u0621-\u06D5]/;
+
+  // 1. Ayet metnindeki Arapça kelimeleri al (vakıf filtreli)
+  const rawText = span.textContent;
+  const arTokens = rawText.split(/\s+/).filter(t => ARABIC_LETTER.test(t));
+
+  // 2. words.json TR listesiyle aynı cardGroups mantığı
+  const trWords = wordDataLoaded ? (wordData[key] || []) : [];
+
+  // cardGroups: [{arParts:[...], tr:string, dbIdx:number}]
+  const cardGroups = [];
+  trWords.forEach((tr, i) => {
+    const ar = arTokens[i] || '';
+    const isStar = !tr || tr === '*';
+    if (isStar && cardGroups.length > 0) {
+      cardGroups[cardGroups.length - 1].arParts.push(ar);
+    } else {
+      cardGroups.push({ arParts: [ar], tr: isStar ? '' : tr, dbIdx: i });
+    }
+  });
+
+  // DB'den fazla token varsa (eşleşmeyenler) son gruba ekle
+  for (let i = trWords.length; i < arTokens.length; i++) {
+    if (cardGroups.length > 0) cardGroups[cardGroups.length-1].arParts.push(arTokens[i]);
+    else cardGroups.push({ arParts: [arTokens[i]], tr: '', dbIdx: i });
+  }
+
+  // 3. Her grup için HTML oluştur - bir oku-word = bir grup
+  const groupHtmlParts = cardGroups.map((g, idx) => {
+    const arText = g.arParts.filter(Boolean).join(' ');
+    if (!arText) return '';
+    return `<span class="oku-word blurred" data-widx="${idx}" data-dbidx="${g.dbIdx}" data-tr="${(g.tr || '').replace(/"/g, '&quot;')}" style="filter:blur(5px);display:inline;">${arText}</span>`;
+  }).filter(Boolean);
+
+  span.innerHTML = groupHtmlParts.join(' ');
+  span.style.filter = 'none';
+  span.onclick = (e) => {
+    e.stopPropagation();
+    okuRevealNextWord(key, span);
+  };
+}
+
+function activateOkuAyah() {
+  const an = okuFrom + okuCurrentAyah;
+  if (an > okuTo) { okuMode = false; return; }
+  const key = `${okuSurah}_${an}`;
+  const block = document.querySelector(`.ayah-block[data-key="${key}"]`);
+  if (block) {
+    // Aktif ayet bu sayfada - scroll et ve kenarlık ekle
+    block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const span = block.querySelector('.ayah-span');
+    if (span) span.classList.add('oku-active-border');
+  }
+  // Aktif ayet başka sayfadaysa - sadece bulanıklık uygulandı, scroll yok
+}
+
+function okuRevealNextWord(key, span) {
+  const words = span.querySelectorAll('.oku-word.blurred');
+  if (words.length === 0) return;
+  // İlk bulanık kelimeyi netleştir
+  const revealedWord = words[0];
+  revealedWord.style.filter = 'none';
+  revealedWord.classList.remove('blurred');
+  revealedWord.classList.add('revealed');
+
+  // data-tr attribute'undan direkt oku (cardGroups mantığında kaydedildi)
+  const tr = revealedWord.dataset.tr || '';
+  if (tr) showOkuTooltip(revealedWord, tr);
+
+  // Tüm kelimeler netleştiyse ayeti seslendir ve sıradakine geç
+  const remaining = span.querySelectorAll('.oku-word.blurred');
+  if (remaining.length === 0) {
+    const an = okuFrom + okuCurrentAyah;
+    span.classList.remove('oku-active-border');
+    const reciter = settings.reciter || 'Husary_128kbps_Mujawwad';
+    playOkuAudio(ayahUrl(okuSurah, an, reciter), () => {
+      okuCurrentAyah++;
+      const nextAn = okuFrom + okuCurrentAyah;
+      if (nextAn <= okuTo) {
+        // Sıradaki ayet bu sayfada mı?
+        const nextKey = `${okuSurah}_${nextAn}`;
+        const nextEl = document.querySelector(`.ayah-block[data-key="${nextKey}"]`);
+        if (!nextEl) {
+          // Farklı sayfada - sayfayı geç
+          let targetPage = currentPage;
+          for (const [pg, blocks] of Object.entries(pageMap)) {
+            for (const block of blocks) {
+              if (block.surahNumber === okuSurah && block.ayahs.some(a => a.numberInSurah === nextAn)) {
+                targetPage = parseInt(pg);
+                break;
+              }
+            }
+          }
+          loadPage(targetPage, null, true).then(() => {
+            applyOkuMode();
+          });
+        } else {
+          applyOkuMode();
+        }
+      } else {
+        okuMode = false;
+      }
+    });
+  }
+}
+
+// ===================== YAZ MODU =====================
+let yazMode = false;
+let yazHintOpen = false; // ipucu modu
+let yazSurah = 0, yazFrom = 0, yazTo = 0;
+let yazCurrentAyah = 0;
+let yazCurrentCharIdx = 0; // sıradaki netleşecek harf index (sağdan sola = chars dizisinin başı)
+let yazCurrentChars = []; // aktif ayetin harf listesi [{char, elId}]
+
+// Arapça base harf eşleşmesi (harekeli/harfli varyantlar)
+const ARABIC_BASE_MAP = {
+  'ا':'ا','أ':'ا','إ':'ا','آ':'ا','ٱ':'ا',
+  'ب':'ب','ت':'ت','ث':'ث','ج':'ج','ح':'ح','خ':'خ',
+  'د':'د','ذ':'ذ','ر':'ر','ز':'ز','س':'س','ش':'ش',
+  'ص':'ص','ض':'ض','ط':'ط','ظ':'ظ','ع':'ع','غ':'غ',
+  'ف':'ف','ق':'ق','ك':'ك','ك':'ك','ل':'ل','م':'م',
+  'ن':'ن','ه':'ه','و':'و','ي':'ي','ى':'ى',
+  'ة':'ه','ؤ':'و','ئ':'ي','ء':'ء',
+
+  'لا':'لا','لأ':'لا','لإ':'لا','لآ':'لا',
+};
+function baseChar(c) { return ARABIC_BASE_MAP[c] || c; }
+
+document.getElementById('apply-yaz').addEventListener('click', () => {
+  // Mod aktifse iptal et
+  if (yazMode) {
+    endYazMode();
+    document.querySelectorAll('.ayah-blur').forEach(el => el.classList.remove('ayah-blur'));
+    document.querySelectorAll('.oku-active-border').forEach(el => el.classList.remove('oku-active-border'));
+    document.getElementById('apply-yaz-label').textContent = 'Uygula';
+    closeModal('ezber-modal');
+    return;
+  }
+  const surahVal = document.getElementById('yaz-surah-select').value;
+  const fromVal = parseInt(document.getElementById('yaz-from').value) || null;
+  const toVal = parseInt(document.getElementById('yaz-to').value) || null;
+  if (!surahVal || !fromVal || !toVal) { alert('Lütfen sure, başlangıç ve bitiş ayetini seçin.'); return; }
+  yazSurah = parseInt(surahVal);
+  yazFrom = fromVal;
+  yazTo = toVal;
+  closeModal('ezber-modal');
+  resetEzberForm();
+  document.getElementById('apply-yaz-label').textContent = 'Modu Kapat';
+
+  let targetPage = surahFirstPage[yazSurah] ? surahFirstPage[yazSurah].page : 1;
+  for (const [pg, blocks] of Object.entries(pageMap)) {
+    for (const block of blocks) {
+      if (block.surahNumber === yazSurah && block.ayahs.some(a => a.numberInSurah === yazFrom)) {
+        targetPage = parseInt(pg); break;
+      }
+    }
+  }
+  loadPage(targetPage, { surah: yazSurah, ayah: yazFrom }, true).then(() => {
+    yazMode = true;
+    yazCurrentAyah = 0;
+    applyYazMode();
+  });
+});
+
+function applyYazMode() {
+  if (!yazMode) return;
+  // Ayet aralığını bulanıklaştır
+  for (let an = yazFrom; an <= yazTo; an++) {
+    const key = `${yazSurah}_${an}`;
+    const block = document.querySelector(`.ayah-block[data-key="${key}"]`);
+    if (!block) continue;
+    const span = block.querySelector('.ayah-span');
+    if (!span) continue;
+    const offset = an - yazFrom;
+    if (offset === yazCurrentAyah) {
+      wrapCharsForYaz(span, key);
+      block.classList.add('ayah-blur');
+      span.style.filter = 'none';
+    } else if (offset < yazCurrentAyah) {
+      block.classList.remove('ayah-blur');
+    } else {
+      block.classList.add('ayah-blur');
+    }
+  }
+  activateYazAyah();
+  document.getElementById('yaz-keyboard').classList.add('open');
+  // footer-h'yi artır klavye için
+  // footer yüksekliği değişmez - klavye zaten footer üstünde
+}
+
+function wrapCharsForYaz(span, key) {
+  const text = span.textContent; // ham metin, hareke dahil
+  // Karakter dizisini oluştur - her baz harf + harekelerini bir birim yap
+  // Arapça harf (U+0600-U+06FF, U+0750-U+077F) + ardındaki harekeler
+  // Gerçek Arapça harfler - vakıf/tilavet işaretleri (U+06D6-U+06ED) hariç
+  const ARABIC_LETTER = /[\u0621-\u063A\u0641-\u064A\u0671-\u06D5]/;
+  const DIACRITIC = /[ؐ-ًؚ-ٰٟۖ-ۜ۟-۪ۤۧۨ-ۭ]/;
+
+  let units = []; // {text: string} her biri bir harf+hareke birimi
+  let i = 0;
+  while (i < text.length) {
+    const ch = text[i];
+    if (ARABIC_LETTER.test(ch)) {
+      let unit = ch;
+      i++;
+      while (i < text.length && DIACRITIC.test(text[i])) {
+        unit += text[i]; i++;
+      }
+      units.push({ text: unit, base: ch });
+    } else if (DIACRITIC.test(ch)) {
+      // Hareke veya tilavet işareti - önceki birime ekle (görsel)
+      if (units.length > 0) units[units.length-1].text += ch;
+      i++;  // ilerle
+    } else {
+      // Boşluk, noktalama veya diğer - önceki birime ekle ya da atla
+      if (units.length > 0) units[units.length-1].text += ch;
+      i++;
+    }
+  }
+
+  // HTML oluştur - sağdan sola sıra, index 0 = en sağdaki harf
+  let html = '';
+  units.forEach((u, idx) => {
+    html += `<span class="yaz-char blurred" data-cidx="${idx}" style="filter:blur(5px)">${u.text}</span>`;
+  });
+  span.innerHTML = html;
+
+  // yazCurrentChars = units dizisi (sağdan sola = index 0'dan başla)
+  yazCurrentChars = units;
+  yazCurrentCharIdx = 0;
+}
+
+function activateYazAyah() {
+  const an = yazFrom + yazCurrentAyah;
+  if (an > yazTo) { endYazMode(); return; }
+  const key = `${yazSurah}_${an}`;
+  const block = document.querySelector(`.ayah-block[data-key="${key}"]`);
+  if (block) {
+    // Aktif ayet bu sayfada - scroll et ve kenarlık ekle
+    block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const span = block.querySelector('.ayah-span');
+    if (span) span.classList.add('oku-active-border');
+  }
+  // Aktif ayet başka sayfadaysa - klavye açık kalır, geri dönünce devam eder
+}
+
+function getYazCurrentWordTr() {
+  if (!wordDataLoaded || !yazCurrentChars.length) return null;
+  const an = yazFrom + yazCurrentAyah;
+  const key = `${yazSurah}_${an}`;
+  const trWords = wordData[key];
+  if (!trWords) return null;
+
+  // yazCurrentChars: wrapCharsForYaz'daki unit listesi
+  // Her unit = bir base harf + harekeler (DIACRITIC dahil değil ayrı)
+  // yazCurrentCharIdx = şu anki unit indeksi
+
+  // Ayet tokenlarındaki unit sayısını wrapCharsForYaz ile AYNI mantıkla hesapla:
+  // ARABIC_LETTER (base harf) = yeni unit başlatır
+  // DIACRITIC = önceki birime eklenir, unit sayımına girmez
+  const ARABIC_LETTER = /[\u0621-\u06D5]/;
+  const DIACRITIC = /[\u0600-\u0605\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/;
+
+  function countUnitsInToken(tok) {
+    let count = 0;
+    for (const ch of tok) {
+      if (ARABIC_LETTER.test(ch) && !DIACRITIC.test(ch)) count++;
+    }
+    return count;
+  }
+
+  // Span'ın orijinal textContent'inden token listesi
+  const span = document.querySelector(`.ayah-block[data-key="${key}"] .ayah-span`);
+  if (!span) return null;
+
+  // wrapCharsForYaz çağrılmışsa span içi değişmiş - data-cidx spanlardan base harf sayısını al
+  // ya da yazCurrentChars dizisinden direkt kullan (daha güvenilir)
+  // yazCurrentChars[i].base = o unit'in base harfi
+  // Ayet tokenlarını orijinal metnden al
+  // span.textContent wrapCharsForYaz sonrası da doğru metni verir
+  const rawText = span.textContent;
+  const arTokens = rawText.split(/\s+/).filter(t => ARABIC_LETTER.test(t));
+
+  // Her token'daki unit sayısını hesapla (wrapCharsForYaz mantığıyla)
+  let charSum = 0;
+  let tokenIdx = 0;
+  for (let ti = 0; ti < arTokens.length; ti++) {
+    const unitCount = countUnitsInToken(arTokens[ti]);
+    if (yazCurrentCharIdx < charSum + unitCount) {
+      tokenIdx = ti;
+      break;
+    }
+    charSum += unitCount;
+    tokenIdx = ti; // son token fallback
+  }
+
+  // tokenIdx → words.json'daki non-star sırasıyla eşleştir
+  let nonStarCount = 0;
+  let resultTr = null;
+  for (let di = 0; di < trWords.length; di++) {
+    const tr = trWords[di];
+    if (!tr || tr === '*') continue;
+    if (nonStarCount === tokenIdx) { resultTr = tr; break; }
+    nonStarCount++;
+    resultTr = tr;
+  }
+  return resultTr || null;
+}
+
+function showYazHint(anchorEl) {
+  const tr = getYazCurrentWordTr();
+  const old = document.getElementById('yaz-hint-tip');
+  if (old) old.remove();
+  if (!tr || !yazHintOpen) return;
+
+  const tipEl = document.createElement('div');
+  tipEl.id = 'yaz-hint-tip';
+  tipEl.textContent = tr;
+  tipEl.style.cssText = `
+    position: fixed; z-index: 500; pointer-events: none;
+    background: #1a3a2a; color: #e8d9b0;
+    font-family: sans-serif; font-size: 13px; font-weight: 600;
+    padding: 4px 10px; border-radius: 6px;
+    border: 1px solid var(--gold);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    white-space: nowrap;
+  `;
+  document.body.appendChild(tipEl);
+
+  // Aktif yazılan harfin span elementini bul ve üstünde konumlandır
+  const an = yazFrom + yazCurrentAyah;
+  const key = `${yazSurah}_${an}`;
+  const span = document.querySelector(`.ayah-block[data-key="${key}"] .ayah-span`);
+  // Mevcut harf elementini bul
+  const charEl = span ? span.querySelector(`[data-cidx="${yazCurrentCharIdx}"]`) : null;
+  // Kelime başlangıç elementini bul (mevcut kelime grubunun ilk harfi)
+  let targetEl = charEl || span;
+
+  if (targetEl) {
+    const rect = targetEl.getBoundingClientRect();
+    const tipW = tipEl.offsetWidth || 100;
+    let left = rect.left + rect.width / 2 - tipW / 2;
+    left = Math.max(6, Math.min(left, window.innerWidth - tipW - 6));
+    const top = rect.top - tipEl.offsetHeight - 8;
+    tipEl.style.left = left + 'px';
+    tipEl.style.top = (top < 6 ? rect.bottom + 4 : top) + 'px';
+  }
+
+  if (anchorEl) {
+    clearTimeout(tipEl._timer);
+    tipEl._timer = setTimeout(() => tipEl.remove(), 2500);
+  }
+}
+
+function endYazMode() {
+  yazMode = false;
+  yazHintOpen = false;
+  const hintBtn = document.getElementById('yaz-hint-btn');
+  if (hintBtn) { hintBtn.textContent = '💡'; hintBtn.style.background = '#3a5a2a'; }
+  document.getElementById('yaz-keyboard').classList.remove('open');
+  const lbl = document.getElementById('apply-yaz-label');
+  if (lbl) lbl.textContent = 'Uygula';
+}
+
+// Klavye tuş olayı
+document.querySelectorAll('.yaz-key').forEach(key => {
+  key.addEventListener('click', () => {
+    if (!yazMode) return;
+    const pressed = key.dataset.char;
+    if (pressed === 'SPACE') { yazCheckChar(' '); return; }
+    yazCheckChar(pressed);
+  });
+});
+
+function yazCheckChar(pressed) {
+  if (!yazCurrentChars.length) return;
+  const target = yazCurrentChars[yazCurrentCharIdx];
+  if (!target) return;
+
+  // İpucu toggle
+  if (pressed === 'HINT') {
+    yazHintOpen = !yazHintOpen;
+    const hintBtn = document.getElementById('yaz-hint-btn');
+    if (hintBtn) {
+      hintBtn.textContent = '💡';
+      hintBtn.style.background = yazHintOpen ? '#6a4a10' : '#3a5a2a';
+      hintBtn.style.borderColor = yazHintOpen ? '#c87533' : '#6a9a4a';
+    }
+    if (yazHintOpen) showYazHint(); // hemen göster
+    return;
+  }
+
+  // Base harf karşılaştırması
+  const pressedBase = baseChar(pressed);
+  const targetBase = baseChar(target.base);
+
+  if (pressedBase === targetBase || pressed === target.base) {
+    // Doğru harf - netleştir
+    const an = yazFrom + yazCurrentAyah;
+    const key = `${yazSurah}_${an}`;
+    const span = document.querySelector(`.ayah-block[data-key="${key}"] .ayah-span`);
+    if (span) {
+      const charEl = span.querySelector(`[data-cidx="${yazCurrentCharIdx}"]`);
+      if (charEl) { charEl.style.filter = 'none'; charEl.classList.remove('blurred'); charEl.classList.add('revealed'); }
+    }
+    yazCurrentCharIdx++;
+
+    // İpucu açıksa tooltip güncelle
+    if (yazHintOpen) {
+      // Mevcut kelime hala devam ediyorsa tooltip güncelle
+      // Kelime tamamlandıysa sıradaki kelimeyi göster (aşağıda kontrol edilecek)
+      const tipEl = document.getElementById('yaz-hint-tip');
+      if (tipEl) tipEl.remove();
+      showYazHint(true);
+    }
+
+    // Tüm harfler netleştiyse
+    if (yazCurrentCharIdx >= yazCurrentChars.length) {
+      const reciter = settings.reciter || 'Husary_128kbps_Mujawwad';
+      if (span) span.classList.remove('oku-active-border');
+      playOkuAudio(ayahUrl(yazSurah, an, reciter), () => {
+        yazCurrentAyah++;
+        yazCurrentCharIdx = 0;
+        yazCurrentChars = [];
+        const nextAn = yazFrom + yazCurrentAyah;
+        if (nextAn <= yazTo) {
+          const nextKey = `${yazSurah}_${nextAn}`;
+          const nextEl = document.querySelector(`.ayah-block[data-key="${nextKey}"]`);
+          if (!nextEl) {
+            let targetPage = currentPage;
+            for (const [pg, blocks] of Object.entries(pageMap)) {
+              for (const block of blocks) {
+                if (block.surahNumber === yazSurah && block.ayahs.some(a => a.numberInSurah === nextAn)) {
+                  targetPage = parseInt(pg); break;
+                }
+              }
+            }
+            loadPage(targetPage, null, true).then(() => applyYazMode());
+          } else {
+            applyYazMode();
+          }
+        } else {
+          endYazMode();
+        }
+      });
+    }
+  }
+  // Yanlış harf: hiçbir şey yapma
+}
+
+// ===================== SWIPE / DRAG =====================
+const mainEl = document.getElementById('main');
+mainEl.addEventListener('touchstart', e => {
+  if (e.touches.length > 1) { isSwiping = false; return; } // pinch zoom - dokunma
+  swipeStartX = e.touches[0].clientX;
+  swipeStartY = e.touches[0].clientY;
+  isSwiping = true;
+}, { passive: true });
+mainEl.addEventListener('touchmove', e => {
+  if (e.touches.length > 1) { isSwiping = false; } // pinch başladıysa swipe iptal
+}, { passive: true });
+mainEl.addEventListener('touchend', e => {
+  if (!isSwiping) return;
+  isSwiping = false;
+  if (e.changedTouches.length > 1) return;
+  const dx = e.changedTouches[0].clientX - swipeStartX;
+  const dy = e.changedTouches[0].clientY - swipeStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+    handleSwipe(dx > 0 ? 'ltr' : 'rtl');
+  }
+}, { passive: true });
+
+// Mouse drag
+let mouseDown = false, mouseStartX = 0;
+mainEl.addEventListener('mousedown', e => {
+  mouseDown = true;
+  mouseStartX = e.clientX;
+});
+document.addEventListener('mouseup', e => {
+  if (!mouseDown) return;
+  const dx = e.clientX - mouseStartX;
+  mouseDown = false;
+  if (Math.abs(dx) > 80) handleSwipe(dx > 0 ? 'ltr' : 'rtl');
+});
+
+function handleSwipe(dir) {
+  // dir 'ltr' = soldan sağa = sonraki sayfa (Arapça'da)
+  // dir 'rtl' = sağdan sola = önceki sayfa
+  // Mod aktifken swipe serbest - loadPage içinde mod korunur
+  if (dir === 'ltr') {
+    const next = currentPage >= 604 ? 1 : currentPage + 1;
+    loadPage(next, okuMode || yazMode ? null : 'first');
+  } else {
+    const prev = currentPage <= 1 ? 604 : currentPage - 1;
+    loadPage(prev, okuMode || yazMode ? null : 'first');
+  }
+}
+
+// ===================== START =====================
+init();
+
+// ===================== WAKE LOCK =====================
+async function requestWakeLock() {
+  if ('wakeLock' in navigator) {
+    try {
+      await navigator.wakeLock.request('screen');
+    } catch(e) {}
+  }
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') requestWakeLock();
+});
+requestWakeLock();
+</script>
+</body>
+</html>
