@@ -4,8 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0">
 <title>القرآن الكريم</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('ScheherazadeNew-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('ScheherazadeNew-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('ScheherazadeNew-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+</style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 :root {
@@ -70,7 +85,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   text-align: center; margin: 28px 0 6px;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
-.surah-title-frame {
+.surah-title-frame { cursor: pointer; 
   border: 2px solid var(--gold);
   border-radius: 8px;
   padding: 6px 32px;
@@ -183,10 +198,41 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   background: #fffbf0; border-right: 3px solid var(--gold);
   padding: 10px 14px; margin: 4px 0; border-radius: 0 6px 6px 0;
   font-size: 14px; color: #333; font-family: sans-serif; line-height: 1.8;
-  max-height: 400px; overflow-y: auto;
+  max-height: 60vh; overflow-y: auto;
 }
 .tafsir-row p { margin-bottom: 6px; }
 .tafsir-row.visible { display: block; }
+
+.sura-accordion {
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+.sura-accordion-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 2px; cursor: pointer; user-select: none;
+  font-size: 12px; font-weight: 700; color: var(--gold);
+  letter-spacing: 0.4px; font-family: sans-serif;
+}
+.sura-accordion-header:hover { color: #e8c060; }
+.sura-accordion-arrow {
+  transition: transform 0.25s; font-size: 10px; color: var(--gold);
+}
+.sura-accordion-header.open .sura-accordion-arrow { transform: rotate(180deg); }
+.sura-accordion-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease;
+  font-size: 14px; line-height: 1.8; color: #333;
+  font-family: sans-serif;
+}
+.sura-accordion-body.open { max-height: 2000px; }
+.sura-accordion-body p { margin: 0 0 10px; }
+
+.sura-info-card {
+  background: #f8fffe; border: 1px solid var(--green-light);
+  border-radius: 8px; padding: 8px 12px; text-align: center;
+}
+.sura-info-label { font-size: 11px; color: #888; margin-bottom: 2px; display: block; }
+.sura-info-val { font-weight: 700; color: var(--green); font-size: 15px; display: block; }
 
 /* FOOTER */
 #footer {
@@ -407,22 +453,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 </style>
 </head>
 <body>
-<script>
-// Wake Lock - ekranın kapanmasını engelle
-async function requestWakeLock() {
-  try {
-    if ('wakeLock' in navigator) {
-      window._wakeLock = await navigator.wakeLock.request('screen');
-      document.addEventListener('visibilitychange', async () => {
-        if (document.visibilityState === 'visible') {
-          window._wakeLock = await navigator.wakeLock.request('screen');
-        }
-      });
-    }
-  } catch(e) {}
-}
-requestWakeLock();
-</script>
+<!-- Wake Lock taşındı -->
 
 <!-- LOADING -->
 <div id="loading">
@@ -462,7 +493,7 @@ requestWakeLock();
     <span>Ara</span>
   </button>
   <button class="footer-btn" id="btn-play">
-    <span id="play-label" style="font-family:var(--font-quran);font-size:14px;color:#e8d9b0;line-height:1.3;">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
+    <span id="play-label" style="font-family:var(--font-quran);font-size:15px;font-weight:700;color:#e8d9b0;line-height:1.3;letter-spacing:0.5px">بسم الله الرحمن الرحيم</span>
   </button>
   <button class="footer-btn" id="btn-menu">
     <i class="fa-solid fa-book-open"></i>
@@ -483,6 +514,17 @@ requestWakeLock();
   </div>
   <div class="yaz-kb-row">
     <span class="yaz-key" data-char="أ">أ</span><span class="yaz-key" data-char="إ">إ</span><span class="yaz-key" data-char="آ">آ</span><span class="yaz-key" data-char="ٱ">ٱ</span><span class="yaz-key" data-char="لا">لا</span><span class="yaz-key" data-char="لأ">لأ</span><span class="yaz-key" data-char="لإ">لإ</span><span class="yaz-key" data-char="لآ">لآ</span><span class="yaz-key" id="yaz-hint-btn" data-char="HINT" style="background:#3a5a2a;border-color:#6a9a4a;font-size:20px;">💡</span>
+  </div>
+</div>
+
+<!-- SURE BİLGİ MODAL -->
+<div class="modal-overlay" id="sura-info-modal">
+  <div class="modal-box" style="max-width:520px">
+    <div class="modal-header">
+      <span id="sura-info-title">—</span>
+      <button class="modal-close" data-modal="sura-info-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-list" id="sura-info-content" style="padding:16px;font-family:sans-serif;direction:ltr;text-align:left;overflow-y:auto;max-height:65vh"></div>
   </div>
 </div>
 
@@ -648,16 +690,46 @@ requestWakeLock();
   </div>
 </div>
 
-
-
 <script>
+// Wake Lock - ekranın kapanmasını engelle
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) {
+      window._wakeLock = await navigator.wakeLock.request('screen');
+      document.addEventListener('visibilitychange', async () => {
+        if (document.visibilityState === 'visible') {
+          window._wakeLock = await navigator.wakeLock.request('screen');
+        }
+      });
+    }
+  } catch(e) {}
+}
+requestWakeLock();
+
 // ===================== ARABIC NUMERALS =====================
 const toArabicNum = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+const DIYANET_SLUGS = ["fatiha", "bakara", "al-i-imran", "nisa", "maide", "enam", "araf", "enfal", "tevbe", "yunus", "hud", "yusuf", "rad", "ibrahim", "hicr", "nahl", "isra", "kehf", "meryem", "taha", "enbiya", "hac", "muminun", "nur", "furkan", "suara", "neml", "kasas", "ankebut", "rum", "lokman", "secde", "ahzab", "sebe", "fatir", "yasin", "saffat", "sad", "zumer", "gafir", "fussilet", "sura", "zuhruf", "duhan", "casiye", "ahkaf", "muhammed", "fetih", "hucurat", "kaf", "zariyat", "tur", "necm", "kamer", "rahman", "vakia", "hadid", "mucadele", "hasr", "mumtehine", "saf", "cuma", "munafikun", "tegabun", "talak", "tahrim", "mulk", "kalem", "hakka", "mearic", "nuh", "cin", "muzemmil", "muddessir", "kiyame", "insan", "murselat", "nebe", "naziat", "abese", "tekvir", "infitar", "mutaffifin", "insikak", "burus", "tarik", "ala", "gasiye", "fecr", "beled", "sems", "leyl", "duha", "insirah", "tin", "alak", "kadir", "beyyine", "zilzal", "adiyat", "karia", "tekasur", "asr", "humeze", "fil", "kureys", "maun", "kevser", "kafirun", "nasr", "tebbet", "ihlas", "felak", "nas"];
+let suraInfoData = {}; // sura_info.json verisi
+let suraInfoLoaded = false;
+
+async function loadSuraInfo() {
+  if (suraInfoLoaded) return;
+  try {
+    if (typeof SURA_INFO_DATA !== 'undefined') {
+      suraInfoData = SURA_INFO_DATA; suraInfoLoaded = true; return;
+    }
+    const res = await fetch('sura_info.json?v=1');
+    if (!res.ok) return;
+    suraInfoData = await res.json();
+    suraInfoLoaded = true;
+  } catch(e) {}
+}
 
 // ===================== STATE =====================
 let currentPage = parseInt(localStorage.getItem('quran_page') || '1');
 let allSurahs = []; // [{number, name, englishName, ayahs:[{number,numberInSurah,text,page,juz,surahNumber}]}]
-let mealData = {}; // key: globalAyahNumber -> {text, numberInSurah, surahNumber}
+let sadiMealData = {}; // key: "sura_ayah" -> meal text (Sa'di)
+let sadiMealLoaded = false;
 let pageMap = {}; // pageNum -> [{surahNumber,surahName,ayahs:[...]}]
 let juzFirstPage = {}; // juzNum -> pageNum
 let surahFirstPage = {}; // surahNum -> {page, firstAyahNum}
@@ -683,10 +755,37 @@ let settings = JSON.parse(localStorage.getItem('quran_settings') || '{}');
 let swipeStartX = 0, swipeStartY = 0, isSwiping = false;
 let lastSelectedSurahForModal = null; // for surah modal selection logic
 
+// ===================== SADI MEAL DATA =====================
+async function loadSadiMeal() {
+  try {
+    if (typeof SADI_MEAL_DATA !== 'undefined') {
+      sadiMealData = SADI_MEAL_DATA;
+      sadiMealLoaded = true;
+    } else {
+      const res = await fetch('meal.json?v=1');
+      if (!res.ok) return;
+      sadiMealData = await res.json();
+      sadiMealLoaded = true;
+    }
+    // Yüklendikten sonra sayfadaki tüm meal satırlarını güncelle
+    refreshAllMeals();
+  } catch(e) {}
+}
+
+function refreshAllMeals() {
+  // Mevcut sayfadaki her meal-row'u güncelle
+  document.querySelectorAll('.meal-row').forEach(el => {
+    const key = el.id.replace('meal-', '');
+    const txt = sadiMealData[key] || '';
+    const mealTextEl = el.querySelector('.meal-text');
+    if (mealTextEl && txt) mealTextEl.textContent = txt;
+  });
+}
+
 // ===================== TAFSIR DATA =====================
 async function loadTafsirData() {
   try {
-    const res = await fetch('tafsir.json');
+    const res = await fetch('tafsir.json?v=3');
     if (!res.ok) return;
     tafsirData = await res.json();
     tafsirDataLoaded = true;
@@ -695,19 +794,21 @@ async function loadTafsirData() {
 
 function getTafsir(key) {
   if (!tafsirDataLoaded) return null;
-  let val = tafsirData[key];
-  if (!val) return null;
-  // Referans mı? (kısa string, underscore içeriyor, harf yok)
-  if (val.length < 15 && /^\d+_\d+$/.test(val)) {
-    val = tafsirData[val] || val;
+  // Direkt eşleşme
+  if (tafsirData[key]) return tafsirData[key];
+  // Bulunamazsa önceki ayetlere geri dön (bazı ayetler önceki blokta)
+  const [sura, ayah] = key.split('_').map(Number);
+  for (let i = ayah - 1; i >= 1; i--) {
+    const prev = tafsirData[`${sura}_${i}`];
+    if (prev) return prev;
   }
-  return val;
+  return null;
 }
 
 // ===================== WORD DATA =====================
 async function loadWordData() {
   try {
-    const res = await fetch('words.json');
+    const res = await fetch('words.json?v=3');
     if (!res.ok) return; // dosya yoksa sessizce geç
     wordData = await res.json();
     wordDataLoaded = true;
@@ -767,8 +868,7 @@ function renderWordMeal(wmEl, trWords) {
   wmEl.classList.add('visible');
 }
 
-// ===================== API FETCH =====================
-const BASE = 'https://api.alquran.cloud/v1';
+// ===================== LOCAL FETCH =====================
 async function fetchJSON(url) {
   const r = await fetch(url);
   if (!r.ok) throw new Error('Fetch failed: ' + url);
@@ -779,66 +879,33 @@ async function fetchJSON(url) {
 async function init() {
   showLoading(true);
   try {
-    // Load full Quran Arabic + Meal
-    const [arRes, trRes] = await Promise.all([
-      fetchJSON(`${BASE}/quran/quran-uthmani`),
-      fetchJSON(`${BASE}/quran/tr.diyanet`)
-    ]);
+    // Yerel Kur'an verisi yükle
+    let qdata;
+    if (typeof QURAN_DATA !== 'undefined') {
+      qdata = QURAN_DATA;
+    } else {
+      qdata = await fetchJSON('quran-data-full.json');
+    }
 
-    const arSurahs = arRes.data.surahs;
-    const trSurahs = trRes.data.surahs;
+    // pageMap, juzFirstPage, surahFirstPage direkt yükle
+    allSurahs = qdata.surahs;
 
-    // Build meal lookup & juz/surah page maps
-    arSurahs.forEach((surah, si) => {
-      const trSurah = trSurahs[si];
-      surah.ayahs.forEach((ayah, ai) => {
-        const key = `${surah.number}_${ayah.numberInSurah}`;
-        const globalNum = ayah.number;
-        if (trSurah && trSurah.ayahs[ai]) {
-          mealData[globalNum] = {
-            text: trSurah.ayahs[ai].text,
-            numberInSurah: ayah.numberInSurah,
-            surahNumber: surah.number
-          };
-        }
-        // page map
-        if (!pageMap[ayah.page]) pageMap[ayah.page] = [];
-        // find or create surah block
-        let block = pageMap[ayah.page].find(b => b.surahNumber === surah.number);
-        if (!block) {
-          block = { surahNumber: surah.number, surahName: surah.name, ayahs: [] };
-          pageMap[ayah.page].push(block);
-        }
-        if (surah.number === 2 && ayah.numberInSurah === 72) {
-          ayah = { ...ayah, text: ayah.text.replace('فَٱدَّٰرَْٰٔتُمْ' ,'فَٱدَّٰرَأْتُمْ') };
-        }
-        block.ayahs.push({ ...ayah, surahNumber: surah.number, surahName: surah.name });
-
-        // juz first page
-        if (!juzFirstPage[ayah.juz]) juzFirstPage[ayah.juz] = ayah.page;
-        else juzFirstPage[ayah.juz] = Math.min(juzFirstPage[ayah.juz], ayah.page);
-
-        // surah first page
-        if (!surahFirstPage[surah.number]) {
-          surahFirstPage[surah.number] = { page: ayah.page, firstAyahNum: ayah.numberInSurah };
-        }
-      });
-    });
-
-    allSurahs = arSurahs;
-
-    // API'deki bazı cüz-sayfa eşleşmeleri hatalı - manuel düzelt
-    const JUZ_CORRECT_PAGES = {
-      4:62, 7:122, 11:202, 26:502
-    };
-    Object.entries(JUZ_CORRECT_PAGES).forEach(([juz, page]) => {
-      juzFirstPage[parseInt(juz)] = page;
-    });
+    // JSON key'leri string olabilir, integer'a çevir
+    for (const [k, v] of Object.entries(qdata.pageMap))
+      pageMap[parseInt(k)] = v;
+    for (const [k, v] of Object.entries(qdata.juzFirstPage))
+      juzFirstPage[parseInt(k)] = v;
+    for (const [k, v] of Object.entries(qdata.surahFirstPage))
+      surahFirstPage[parseInt(k)] = v;
 
     // Kelime meali veritabanını arka planda yükle
     loadWordData();
     // Tefsir veritabanını arka planda yükle
     loadTafsirData();
+    // Sa'di mealini arka planda yükle
+    loadSadiMeal();
+    // Sure bilgilerini arka planda yükle
+    loadSuraInfo();
 
     buildModals();
     await loadPage(currentPage, 'first', false);
@@ -847,6 +914,7 @@ async function init() {
   }
   showLoading(false);
 }
+
 
 function showLoading(v) {
   document.getElementById('loading').style.display = v ? 'flex' : 'none';
@@ -938,7 +1006,7 @@ function renderPage(blocks) {
     if (hasFirstAyah) {
       const basmala = getBasmalaForSurah(sn);
       html += `<div class="surah-header">`;
-      html += `<div class="surah-title-frame"><h1>${block.surahName}</h1></div>`;
+      html += `<div class="surah-title-frame" data-surah="${sn}"><h1>${block.surahName}</h1></div>`;
       if (basmala) html += `<div class="basmala">${wrapSpecialChars(basmala)}</div>`;
       html += `</div>`;
     }
@@ -968,11 +1036,11 @@ function renderPage(blocks) {
       html += `<div class="word-meal-row" id="wm-${key}"></div>`;
       html += `<div class="meal-row" id="meal-${key}">`;
       html += `<span class="meal-num">${ayah.numberInSurah}.</span>`;
-      const mealTxt = mealData[globalNum] ? mealData[globalNum].text : '';
-      html += `<span class="meal-text">${mealTxt}</span>`;
-      html += `<span class="meal-source">— Diyanet İşleri</span>`;
+      const sadiMealTxt = sadiMealLoaded ? (sadiMealData[key] || '') : '';
+      html += `<span class="meal-text">${sadiMealTxt}</span>`;
+      html += `<span class="meal-source">— Tefsîru's-Saʿdî</span>`;
       html += `</div>`;
-      html += `<div class="tafsir-toggle" id="tft-${key}">Tefsîrü's-Saʿdî</div>`;
+      html += `<div class="tafsir-toggle" id="tft-${key}">Tefsîru's-Saʿdî</div>`;
       html += `<div class="tafsir-row" id="tfs-${key}"></div>`;
     }
     if (currentRuku !== null) html += `</div>`;
@@ -984,6 +1052,14 @@ function renderPage(blocks) {
 }
 
 function attachPageEvents() {
+  // Sure başlığı tıklama -> sure bilgi modalı
+  document.querySelectorAll('.surah-title-frame').forEach(el => {
+    el.addEventListener('click', () => {
+      const sn = parseInt(el.dataset.surah);
+      if (sn) openSuraInfoModal(sn);
+    });
+  });
+
   // Ayet metni tıklama
   document.querySelectorAll('.ayah-span').forEach(el => {
     el.addEventListener('click', e => {
@@ -1076,21 +1152,24 @@ async function toggleTafsir(key) {
   }
   openTafsirKeys.add(key);
   tfsEl.classList.add('visible');
-  if (tfsEl.dataset.loaded) return;
+  // data-loaded: bir kez yüklendikten sonra tekrar yükleme
+  if (tfsEl.dataset.loaded === '1') return;
   tfsEl.dataset.loaded = '1';
+
+  const [sura, ayah] = key.split('_').map(Number);
+  tfsEl.innerHTML = '<p style="color:#aaa;font-family:sans-serif;font-size:13px">Tefsir yükleniyor...</p>';
 
   if (!tafsirDataLoaded) await loadTafsirData();
   const text = getTafsir(key);
   if (text) {
-    // Tefsir metnini paragraf paragraf göster
-    const formatted = text
-      .replace(/\s*\n\s*/g, '\n')
-      .trim()
+    const paragraphs = text
+      .replace(/\s*\n\s*/g, '\n').trim()
       .split('\n')
-      .filter(l => l.trim())
-      .map(l => `<p style="margin-bottom:6px">${l.trim()}</p>`)
+      .map(l => l.trim())
+      .filter(l => l.length > 2);  // 2 karakterden kısa satırları atla (ayet no vb.)
+    tfsEl.innerHTML = paragraphs
+      .map(l => `<p style="margin:0 0 8px">${l}</p>`)
       .join('');
-    tfsEl.innerHTML = formatted || text;
   } else {
     tfsEl.textContent = 'Bu ayet için tefsir bulunamadı.';
   }
@@ -1113,6 +1192,84 @@ function updateHeader(pageNum, blocks) {
 }
 
 // ===================== MODALS =====================
+async function openSuraInfoModal(sn) {
+  const surah = allSurahs.find(s => s.number === sn);
+  if (!surah) return;
+
+  document.getElementById('sura-info-title').innerHTML =
+    `<span style="font-family:var(--font-quran)">${surah.name}</span>`;
+  document.getElementById('sura-info-content').innerHTML =
+    '<div style="color:#aaa;font-size:13px;padding:16px">Yükleniyor...</div>';
+  openModal('sura-info-modal');
+
+  if (!suraInfoLoaded) await loadSuraInfo();
+  const info = suraInfoData[String(sn)] || {};
+
+  // Bilgi kartları
+  const cards = [
+    ['Toplam Ayet', info['Toplam Ayet Sayısı'] || surah.numberOfAyahs || '?'],
+    ['Mushaf Sırası', info['Mushaf Sırası'] || sn],
+    ['Nüzul Sırası', info['Nüzul Sırası'] || '?'],
+    ['Cüz', getSuraJuz(sn)],
+  ];
+
+  let html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+    ${cards.map(([l,v]) => `
+      <div class="sura-info-card">
+        <div class="sura-info-label">${l}</div>
+        <div class="sura-info-val">${v}</div>
+      </div>`).join('')}
+  </div>`;
+
+  // İçerik bölümleri - akordion
+  const sections = ['Hakkında','Nüzul','Konusu','Fazileti'];
+  const icons = {'Hakkında':'📖','Nüzul':'🌙','Konusu':'📌','Fazileti':'⭐'};
+  for (const sec of sections) {
+    if (!info[sec]) continue;
+    const paras = info[sec].split('\n').filter(l => l.trim().length > 2)
+      .map(l => `<p>${l.trim()}</p>`).join('');
+    const secId = 'acc-' + sec.replace(/[^a-z]/gi,'');
+    html += `
+      <div class="sura-accordion">
+        <div class="sura-accordion-header" onclick="toggleAccordion('${secId}', this)">
+          <span>${icons[sec] || ''} ${sec}</span>
+          <span class="sura-accordion-arrow">▼</span>
+        </div>
+        <div class="sura-accordion-body" id="${secId}">
+          <div style="padding-bottom:8px">${paras}</div>
+        </div>
+      </div>`;
+  }
+
+  html += `<div style="text-align:right;font-size:11px;color:#aaa;font-style:italic;
+    border-top:1px solid var(--border);margin-top:12px;padding-top:8px;font-family:sans-serif">
+    Kaynak: Diyanet İşleri Başkanlığı — Kur'an Yolu
+  </div>`;
+  document.getElementById('sura-info-content').innerHTML = html;
+}
+
+
+
+function toggleAccordion(id, headerEl) {
+  const body = document.getElementById(id);
+  if (!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  headerEl.classList.toggle('open', !isOpen);
+}
+
+function getSuraJuz(sn) {
+  // Surenin ait olduğu cüzü bul
+  const info = surahFirstPage[sn];
+  if (!info) return '?';
+  const page = info.page;
+  let juz = 1;
+  for (let j = 30; j >= 1; j--) {
+    if (juzFirstPage[j] && page >= juzFirstPage[j]) { juz = j; break; }
+  }
+  return juz;
+}
+
 function buildModals() {
   // SURAH LIST
   const surahList = document.getElementById('surah-list');
@@ -1137,9 +1294,8 @@ function buildModals() {
     const q = e.target.value.trim().toLowerCase();
     surahList.querySelectorAll('.modal-item').forEach(el => {
       const name = el.querySelector('.name').textContent.toLowerCase();
-      const sub = el.querySelector('.sub').textContent.toLowerCase();
       const num = el.querySelector('.num').textContent;
-      el.style.display = (name.includes(q) || sub.includes(q) || num.includes(q)) ? '' : 'none';
+      el.style.display = (name.includes(q) || num.includes(q)) ? '' : 'none';
     });
   });
 
@@ -1419,21 +1575,19 @@ async function doSearch() {
   document.getElementById('search-query-input').value = q;
   document.getElementById('search-input-bar').value = q;
   const isArabic = /[\u0600-\u06FF]/.test(q);
-  const edition = isArabic ? 'quran-uthmani' : 'tr.diyanet';
-  const url = `${BASE}/search/${encodeURIComponent(q)}/all/${edition}`;
   document.getElementById('search-count').textContent = 'Aranıyor...';
   document.getElementById('search-results').innerHTML = '';
   searchAllResults = [];
   searchOffset = 0;
   if (!document.getElementById('search-modal').classList.contains('open')) openModal('search-modal');
   try {
-    const [apiRes, tafsirResults] = await Promise.all([
-      fetchJSON(url),
-      isArabic ? [] : searchTafsir(q)
+    const [quranResults, tafsirResults, mealResults] = await Promise.all([
+      isArabic ? searchQuranText(q) : [],
+      isArabic ? [] : searchTafsir(q),
+      isArabic ? [] : searchSadiMeal(q)
     ]);
-    const apiMatches = apiRes.data ? apiRes.data.matches : [];
-    const apiType = isArabic ? 'quran' : 'meal';
-    apiMatches.forEach(m => searchAllResults.push({ type: apiType, sura: m.surah.number, ayah: m.numberInSurah, text: m.text }));
+    quranResults.forEach(m => searchAllResults.push({ type: 'quran', sura: m.sura, ayah: m.ayah, text: m.text }));
+    mealResults.forEach(m => searchAllResults.push({ type: 'meal', sura: m.sura, ayah: m.ayah, text: m.text }));
     tafsirResults.forEach(t => searchAllResults.push({ type: 'tafsir', sura: t.sura, ayah: t.ayah, text: t.snippet }));
     const total = searchAllResults.length;
     const qCount = searchAllResults.filter(r => r.type === 'quran').length;
@@ -1450,6 +1604,32 @@ async function doSearch() {
   } catch(e) {
     document.getElementById('search-count').textContent = 'Hata: ' + e.message;
   }
+}
+
+function searchQuranText(q) {
+  if (!q) return [];
+  const qNorm = q.trim();
+  const results = [];
+  for (const surah of allSurahs) {
+    for (const ayah of surah.ayahs) {
+      if (ayah.text && ayah.text.includes(qNorm)) {
+        results.push({ sura: surah.number, ayah: ayah.numberInSurah, text: ayah.text });
+      }
+    }
+  }
+  return results;
+}
+
+function searchSadiMeal(q) {
+  if (!sadiMealLoaded || !q) return [];
+  const qLower = q.toLowerCase().trim();
+  const results = [];
+  for (const [key, text] of Object.entries(sadiMealData)) {
+    if (!text || !text.toLowerCase().includes(qLower)) continue;
+    const [sura, ayah] = key.split('_').map(Number);
+    results.push({ sura, ayah, text: highlightQ(text, q) });
+  }
+  return results;
 }
 
 function searchTafsir(q) {
@@ -1472,7 +1652,6 @@ function searchTafsir(q) {
   return results;
 }
 
-
 // ===================== EZBER MODAL =====================
 document.getElementById('btn-menu').addEventListener('click', () => {
   // Buton labellarını mevcut moda göre güncelle
@@ -1491,6 +1670,35 @@ document.querySelectorAll('.ezber-tab').forEach(tab => {
     resetEzberForm();
   });
 });
+
+// Ezber modal swipe ile sekme geçişi
+(function() {
+  const TABS = ['dinle', 'oku', 'yaz'];
+  let ezberTouchX = null;
+  const ezberBox = document.querySelector('#ezber-modal .modal-box');
+  if (ezberBox) {
+    ezberBox.addEventListener('touchstart', e => {
+      ezberTouchX = e.touches[0].clientX;
+    }, {passive: true});
+    ezberBox.addEventListener('touchend', e => {
+      if (ezberTouchX === null) return;
+      const dx = e.changedTouches[0].clientX - ezberTouchX;
+      ezberTouchX = null;
+      if (Math.abs(dx) < 50) return;
+      const activeTab = document.querySelector('.ezber-tab.active');
+      if (!activeTab) return;
+      const cur = TABS.indexOf(activeTab.dataset.tab);
+      const next = dx < 0 ? Math.min(cur + 1, TABS.length - 1) : Math.max(cur - 1, 0);
+      if (next === cur) return;
+      document.querySelectorAll('.ezber-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.ezber-panel').forEach(p => p.classList.remove('active'));
+      const nextTab = document.querySelector(`.ezber-tab[data-tab="${TABS[next]}"]`);
+      if (nextTab) nextTab.classList.add('active');
+      const nextPanel = document.getElementById('panel-' + TABS[next]);
+      if (nextPanel) nextPanel.classList.add('active');
+    }, {passive: true});
+  }
+})();
 
 function resetEzberForm() {
   document.getElementById('range-surah-select').value = '';
@@ -1559,7 +1767,7 @@ function startPagePlay() {
   isPlaying = true;
   basmalaPlayedForSurah = new Set();
   // ikon kaldırıldı
-  document.getElementById('play-label').textContent = 'صَدَقَ اللَّهُ الْعَظِيمُ';
+  document.getElementById('play-label').textContent = 'صدق الله العظيم';
   document.getElementById('btn-play').classList.add('active');
 
   // Sıradan kuyruk: seçili ayetten itibaren sayfalar boyunca
@@ -1609,7 +1817,7 @@ function stopPlay() {
   audio.src = '';
   audio.onended = null;
   // ikon kaldırıldı
-  document.getElementById('play-label').textContent = 'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ';
+  document.getElementById('play-label').textContent = 'بسم الله الرحمن الرحيم';
   document.getElementById('btn-play').classList.remove('active');
   if (playingKey) {
     const el = document.querySelector(`.ayah-span[data-key="${playingKey}"]`);
@@ -1640,7 +1848,7 @@ function startEzberPlay() {
   ezberReviewIndex = 0;
 
   // ikon kaldırıldı
-  document.getElementById('play-label').textContent = 'صَدَقَ اللَّهُ الْعَظِيمُ';
+  document.getElementById('play-label').textContent = 'صدق الله العظيم';
   document.getElementById('btn-play').classList.add('active');
 
   const reciter = settings.reciter || 'Husary_128kbps_Mujawwad';
