@@ -8,7 +8,7 @@
 
 # القرآن الكريم — Kur'an-ı Kerim Web Uygulaması
 
-> Tarayıcıda çalışan, internet bağlantısı gerektiren, modern ve mobil uyumlu Kur'an-ı Kerim uygulaması.
+> Tarayıcıda çalışan, modern ve mobil uyumlu Kur'an-ı Kerim uygulaması.
 
 🌐 **Canlı Demo:** [mustafakilic13.github.io/kuranikerim](https://mustafakilic13.github.io/kuranikerim/)
 
@@ -33,31 +33,35 @@
 - Ayetler **düz yazı** formatında, sağa-sola hizalı (justify)
 - Sure başlıkları süslü çerçeve içinde, besmele ortalanmış
 - **Ruku grubu** ayrımı — tek ve çift ruku ayet numaraları farklı renkte (yeşil / mor)
-- U+06DF tilavet işaretleri görsel olarak ayırt edilmiş
+- Durak işaretleri:
+م	Durmak gerekir.
+لا	Geçmek gerekir.
+ج	Durmakta ve geçmekte eşittir.
+قلی	Durmak tercih edilir.
+صلی	Geçmek tercih edilir.
+∴ ∴	İkisinden birisinde durmak tercih edilebilir.
 
 ### 🧭 Navigasyon
 - **Sure, Sayfa, Cüz** modalları — aktif içerik otomatik vurgulanır ve ortaya kaydırılır
 - Mobilde **parmakla kaydırarak** sayfa geçişi, masaüstünde **fare sürükleyerek**
 - Son kaldığı sayfa `localStorage`'da hatırlanır
-- Sure modalında Türkçe/Arapça arama filtresi
 
 ### 🔉 Ses / Dinle
 - **Husary (Mücevved)** ve **Abdulbasit (Mücevved)** okuyucuları
 - Seçili ayetten itibaren sıralı dinleme (**بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ** butonu)
 - Sure, ayet aralığı, tekrar sayısı ile kişiselleştirilmiş dinleme (**Ezber → Dinle** modu)
-- Her surenin başında euzu ve besmele otomatik çalınır
 
 ### 📚 Meal ve Tefsir
-- **Diyanet İşleri** Türkçe meali — ayet numarasına tıklayınca açılır/kapanır
+- **Tefsîru's-Saʿdî** Türkçe meali — ayet numarasına tıklayınca açılır/kapanır
 - **Kelime meali** — her kelimenin Türkçe karşılığı kart formatında
-- **Tefsîrü's-Saʿdî** Türkçe tefsiri — meal altında ayrı bölümde
+- **Tefsîrü's-Saʿdî** Türkçe tefsiri — meal altında ayrı bölümde Tefsîrü's-Saʿdî metnine tıklayınca açılır.
 
 ### 🔍 Arama
 - **Arapça** arama → Kur'an metninde
-- **Türkçe** arama → Meal (Diyanet) + Tefsîrü's-Saʿdî içinde aynı anda
+- **Türkçe** arama → Meal + Tefsîrü's-Saʿdî içinde aynı anda
 - Eşleşen kelimeler sarı ile vurgulanır
 - Sonuçlar 33'lü gruplar halinde, "Devamı…" ile kademeli yükleme
-- Sonuçlarda kaynak etiketi: 📖 Kur'an-ı Kerim / 📗 Meal / 📝 Tefsir
+- Sonuçlarda kaynak etiketi: 📖 Kur'an-ı Kerim / 📗 Meal / 📝 Tefsir olarak belirtilir.
 
 ### 🧠 Ezber Modları
 
@@ -81,7 +85,7 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 - Tüm harfler netleşince ayet okunur
 
 ### 📱 Mobil Uyum
-- Mobilde pinch-to-zoom ile metin büyütme/küçültme
+- Mobilde iki parmak ile metin büyütme/küçültme
 - Ekran kapanma engeli (Wake Lock API)
 - Responsive tasarım — tüm ekran boyutlarında kullanılabilir
 
@@ -105,28 +109,12 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
    git clone https://github.com/mustafakilic13/kuranikerim.git
    ```
 
-2. Klasörü açın — üç dosya birlikte olmalı:
-   ```
-   index.html
-   words.json
-   tafsir.json
-   ```
-
-3. `index.html` dosyasını modern bir tarayıcıda açın.
-
-> ⚠️ **Not:** Kelime meali (`words.json`) ve tefsir (`tafsir.json`) dosyalarının `index.html` ile **aynı klasörde** olması gerekir. Uygulama internet bağlantısı gerektirir (Kur'an metni ve ses dosyaları API üzerinden yüklenir).
+3. modern bir tarayıcıda http://localhost:8000 adresini açın.
 
 ---
 
 ## 📁 Dosya Yapısı
 
-```
-kuranikerim/
-├── index.html    # Ana uygulama (tek HTML dosyası)
-├── words.json        # Kelime meali veritabanı (~1 MB)
-├── tafsir.json       # Tefsîrü's-Saʿdî veritabanı (~7 MB)
-└── README.md
-```
 
 ---
 
@@ -134,12 +122,12 @@ kuranikerim/
 
 | İçerik | Kaynak | Bağlantı |
 |--------|--------|----------|
-| Kur'an metni (Osmani Hattı) | AlQuran Cloud API | [alquran.cloud](https://alquran.cloud) |
-| Türkçe Meal | Diyanet İşleri Başkanlığı | [diyanet.gov.tr](https://www.diyanet.gov.tr) |
+| Kur'an metni (Osmani Hattı) | Tanzil.net API | [tanzil.net](https://tanzil.net) |
+| Sure bilgileri | Diyanet İşleri Başkanlığı - Kur'an Yolu Tefsiri | [diyanet.gov.tr](https://www.diyanet.gov.tr) |
 | Ses dosyaları | EveryAyah | [everyayah.com](https://everyayah.com) |
 | Kelime Meali | GTAF | [gtaf.org](https://gtaf.org) |
-| Tefsîrü's-Saʿdî (Türkçe) | GTAF | [gtaf.org](https://gtaf.org) |
-| Arapça font | Scheherazade New | [fonts.google.com](https://fonts.google.com/specimen/Scheherazade+New) |
+| Tefsîru's-Saʿdî (Türkçe) | islamenc.com | [islamenc.com](https://saadi.islamenc.com/tr/browse/tafsir/saadi/) |
+| Arapça font | Scheherazade New | [sil.org](https://software.sil.org/scheherazade/) |
 | İkonlar | Font Awesome | [fontawesome.com](https://fontawesome.com) |
 
 ---
@@ -147,19 +135,9 @@ kuranikerim/
 ## 🛠 Teknik Bilgiler
 
 - **Teknoloji:** Vanilla JavaScript (ES6+), HTML5, CSS3 — framework kullanılmamıştır
-- **Tek dosya:** Tüm uygulama mantığı `quran-app.html` içindedir
-- **API:** [AlQuran Cloud](https://alquran.cloud/api) — ücretsiz, açık kaynak
-- **Ses:** [EveryAyah.com](https://everyayah.com) CDN
-- **Çevrimdışı:** Kur'an metni ve ses dosyaları internet gerektirir; kelime meali ve tefsir yerel JSON dosyalarından yüklenir
+- **Tek dosya:** Tüm uygulama mantığı ile html, css, JavaScript `quran-app.html` içindedir
+- **Çevrimdışı:** Kur'anı Kerim ses dosyaları internet gerektirir
 - **Tarayıcı desteği:** Chrome, Firefox, Safari, Edge (modern sürümler)
-
-### Kullanılan API Endpointleri
-```
-https://api.alquran.cloud/v1/quran/quran-uthmani     # Kur'an metni
-https://api.alquran.cloud/v1/quran/tr.diyanet         # Türkçe meal
-https://api.alquran.cloud/v1/search/{q}/all/{edition} # Arama
-https://everyayah.com/data/{okuyucu}/{sure}{ayet}.mp3 # Ses
-```
 
 ---
 
