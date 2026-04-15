@@ -1,6 +1,6 @@
 <div align="center">
 
-**بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ**
+**بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ**
 
 </div>
 
@@ -35,10 +35,15 @@
 - **Ruku grubu** ayrımı — tek ve çift ruku ayet numaraları farklı renkte (yeşil / mor)
 - Durak işaretleri:
 م	Durmak gerekir.
+
 لا	Geçmek gerekir.
+
 ج	Durmakta ve geçmekte eşittir.
+
 قلی	Durmak tercih edilir.
+
 صلی	Geçmek tercih edilir.
+
 ∴ ∴	İkisinden birisinde durmak tercih edilebilir.
 
 ### 🧭 Navigasyon
@@ -155,7 +160,7 @@ Bu proje MIT lisansı ile dağıtılmaktadır. Kullanılan içeriklerin (meal, t
 
 <div align="center">
 
-**بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ**
+**بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ**
 
 *"Bu, kendisinde hiçbir şüphe bulunmayan, muttakiler için yol gösterici bir kitaptır."*
 *(Bakara, 2:2)*
