@@ -12,8 +12,6 @@
 
 🌐 **Canlı Demo:** [mustafakilic13.github.io/kuranikerim](https://mustafakilic13.github.io/kuranikerim/)
 
----
-
 ## ✨ Özellikler
 
 ### 📖 Metin ve Görüntüleme
@@ -22,17 +20,18 @@
 - Sure başlıkları süslü çerçeve içinde, besmele ortalanmış
 - **Ruku grubu** ayrımı — tek ve çift ruku ayet numaraları farklı renkte (yeşil / mor)
 - Durak işaretleri:
-م	Durmak gerekir.
 
-لا	Geçmek gerekir.
-
-ج	Durmakta ve geçmekte eşittir.
-
-قلی	Durmak tercih edilir.
-
-صلی	Geçmek tercih edilir.
-
-∴ ∴	İkisinden birisinde durmak tercih edilebilir.
+	(**Durmak gerekir   م**)
+	
+	(**Geçmek gerekir   لا**)
+	
+	(**Durmak ve geçmek eşittir   ج**)
+	
+	(**Durmak tercih edilir   قلى**)
+	
+	(**Geçmek tercih edilir   صلى**)
+	
+	(**İkisinden birisinde durmak tercih edilebilir   ∴ ∴**)
 
 ### 🧭 Navigasyon
 - **Sure, Sayfa, Cüz** modalları — aktif içerik otomatik vurgulanır ve ortaya kaydırılır
@@ -97,11 +96,6 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
    ```
 
 3. modern bir tarayıcıda http://localhost:8000 adresini açın.
-
----
-
-## 📁 Dosya Yapısı
-
 
 ---
 
