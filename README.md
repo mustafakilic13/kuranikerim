@@ -14,18 +14,6 @@
 
 ---
 
-## 📋 İçindekiler
-
-- [Özellikler](#özellikler)
-- [Ekran Görüntüleri](#ekran-görüntüleri)
-- [Kurulum ve Kullanım](#kurulum-ve-kullanım)
-- [Dosya Yapısı](#dosya-yapısı)
-- [Kaynaklar](#kaynaklar)
-- [Teknik Bilgiler](#teknik-bilgiler)
-- [Lisans](#lisans)
-
----
-
 ## ✨ Özellikler
 
 ### 📖 Metin ve Görüntüleme
@@ -93,12 +81,6 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 - Mobilde iki parmak ile metin büyütme/küçültme
 - Ekran kapanma engeli (Wake Lock API)
 - Responsive tasarım — tüm ekran boyutlarında kullanılabilir
-
----
-
-## 📱 Ekran Görüntüleri
-
-*Ekran görüntüleri eklenecek*
 
 ---
 
