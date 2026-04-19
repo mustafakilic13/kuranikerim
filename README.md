@@ -31,6 +31,8 @@
 	
 	(**Geçmek tercih edilir   صلى**)
 	
+	(**Kısa bir süre nefes almadan durulur ve okumaya devam edilir  س**)
+	
 	(**İkisinden birisinde durmak tercih edilebilir   ∴ ∴**)
 
 ### 🧭 Navigasyon
