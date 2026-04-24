@@ -794,13 +794,17 @@ async function loadTafsirData() {
 
 function getTafsir(key) {
   if (!tafsirDataLoaded) return null;
-  // Direkt eşleşme
-  if (tafsirData[key]) return tafsirData[key];
-  // Bulunamazsa önceki ayetlere geri dön (bazı ayetler önceki blokta)
+  const toObj = val => {
+    if (!val) return null;
+    if (typeof val === 'object') return val;
+    return { arabic: '', turkish: val };
+  };
+  if (tafsirData[key]) return toObj(tafsirData[key]);
+  // Bulunamazsa önceki ayetlere geri dön
   const [sura, ayah] = key.split('_').map(Number);
   for (let i = ayah - 1; i >= 1; i--) {
     const prev = tafsirData[`${sura}_${i}`];
-    if (prev) return prev;
+    if (prev) return toObj(prev);
   }
   return null;
 }
@@ -1160,16 +1164,25 @@ async function toggleTafsir(key) {
   tfsEl.innerHTML = '<p style="color:#aaa;font-family:sans-serif;font-size:13px">Tefsir yükleniyor...</p>';
 
   if (!tafsirDataLoaded) await loadTafsirData();
-  const text = getTafsir(key);
-  if (text) {
-    const paragraphs = text
+  const entry = getTafsir(key);
+  if (entry) {
+    const arabicText = entry.arabic || '';
+    const turkishText = entry.turkish || '';
+    const formatParas = txt => txt
       .replace(/\s*\n\s*/g, '\n').trim()
-      .split('\n')
-      .map(l => l.trim())
-      .filter(l => l.length > 2);  // 2 karakterden kısa satırları atla (ayet no vb.)
-    tfsEl.innerHTML = paragraphs
-      .map(l => `<p style="margin:0 0 8px">${l}</p>`)
-      .join('');
+      .split('\n').map(l => l.trim()).filter(l => l.length > 2)
+      .map(l => `<p style="margin:0 0 8px">${l}</p>`).join('');
+    let html = '';
+    if (arabicText) {
+      html += `<div style="font-family:var(--font-quran);font-size:16px;direction:rtl;
+          text-align:right;background:#f9f6ee;padding:10px;border-radius:6px;
+          line-height:2;margin-bottom:10px">${formatParas(arabicText)}</div>`;
+    }
+    if (turkishText) {
+      html += `<div style="font-family:sans-serif;font-size:13px;line-height:1.8;color:#333">
+          ${formatParas(turkishText)}</div>`;
+    }
+    tfsEl.innerHTML = html || '<p style="color:#aaa;font-size:13px">İçerik bulunamadı.</p>';
   } else {
     tfsEl.textContent = 'Bu ayet için tefsir bulunamadı.';
   }
@@ -1638,7 +1651,9 @@ function searchTafsir(q) {
   const results = [];
   let re;
   try { re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'); } catch(e) { re = null; }
-  for (const [key, text] of Object.entries(tafsirData)) {
+  for (const [key, val] of Object.entries(tafsirData)) {
+    if (!val) continue;
+    const text = typeof val === 'object' ? (val.turkish || '') : val;
     if (!text || (text.length < 15 && /^\d+_\d+$/.test(text))) continue;
     const idx = text.toLowerCase().indexOf(qLower);
     if (idx === -1) continue;
