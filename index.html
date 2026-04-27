@@ -1703,7 +1703,7 @@ document.querySelectorAll('.ezber-tab').forEach(tab => {
       const activeTab = document.querySelector('.ezber-tab.active');
       if (!activeTab) return;
       const cur = TABS.indexOf(activeTab.dataset.tab);
-      const next = dx < 0 ? Math.min(cur + 1, TABS.length - 1) : Math.max(cur - 1, 0);
+      const next = dx > 0 ? Math.min(cur + 1, TABS.length - 1) : Math.max(cur - 1, 0);
       if (next === cur) return;
       document.querySelectorAll('.ezber-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.ezber-panel').forEach(p => p.classList.remove('active'));
