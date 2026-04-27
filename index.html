@@ -2374,9 +2374,13 @@ function applyYazMode() {
     }
   }
   activateYazAyah();
-  document.getElementById('yaz-keyboard').classList.add('open');
-  // footer-h'yi artır klavye için
-  // footer yüksekliği değişmez - klavye zaten footer üstünde
+  const kbd = document.getElementById('yaz-keyboard');
+  kbd.classList.add('open');
+  // Klavye yüksekliği kadar içerik alanına padding ekle (içerik gizlenmesin)
+  requestAnimationFrame(() => {
+    const kbdH = kbd.offsetHeight;
+    document.getElementById('quran-content').style.paddingBottom = kbdH + 'px';
+  });
 }
 
 function wrapCharsForYaz(span, key) {
@@ -2549,6 +2553,7 @@ function endYazMode() {
   const hintBtn = document.getElementById('yaz-hint-btn');
   if (hintBtn) { hintBtn.textContent = '💡'; hintBtn.style.background = '#3a5a2a'; }
   document.getElementById('yaz-keyboard').classList.remove('open');
+  document.getElementById('quran-content').style.paddingBottom = '';
   const lbl = document.getElementById('apply-yaz-label');
   if (lbl) lbl.textContent = 'Uygula';
 }
