@@ -6,9 +6,9 @@
 
 ---
 
-# القرآن الكريم — Kur'an-ı Kerim Web Uygulaması
+# القرءان الكريم —  Kur'an-ı Kerim  Ezber Web Uygulaması
 
-> Tarayıcıda çalışan, modern ve mobil uyumlu Kur'an-ı Kerim uygulaması.
+> Tarayıcıda çalışan, Kur'an-ı Kerim ezber web uygulaması.
 
 🌐 **Canlı Demo:** [mustafakilic13.github.io/kuranikerim](https://mustafakilic13.github.io/kuranikerim/)
 
@@ -41,18 +41,18 @@
 - Son kaldığı sayfa `localStorage`'da hatırlanır
 
 ### 🔉 Ses / Dinle
-- **Husary (Mücevved)** ve **Abdulbasit (Mücevved)** okuyucuları
+- **Husary (Mucevved)** ve **Abdulbasit (Mecevved)** okuyucuları
 - Seçili ayetten itibaren sıralı dinleme (**بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ** butonu)
 - Sure, ayet aralığı, tekrar sayısı ile kişiselleştirilmiş dinleme (**Ezber → Dinle** modu)
 
 ### 📚 Meal ve Tefsir
 - **Tefsîru's-Saʿdî** Türkçe meali — ayet numarasına tıklayınca açılır/kapanır
 - **Kelime meali** — her kelimenin Türkçe karşılığı kart formatında
-- **Tefsîrü's-Saʿdî** Türkçe tefsiri — meal altında ayrı bölümde Tefsîrü's-Saʿdî metnine tıklayınca açılır.
+- **Tefsîru's-Saʿdî** Türkçe tefsiri — meal altında ayrı bölümde Tefsîru's-Saʿdî metnine tıklayınca açılır.
 
 ### 🔍 Arama
 - **Arapça** arama → Kur'an metninde
-- **Türkçe** arama → Meal + Tefsîrü's-Saʿdî içinde aynı anda
+- **Türkçe** arama → Meal + Tefsîru's-Saʿdî içinde aynı anda
 - Eşleşen kelimeler sarı ile vurgulanır
 - Sonuçlar 33'lü gruplar halinde, "Devamı…" ile kademeli yükleme
 - Sonuçlarda kaynak etiketi: 📖 Kur'an-ı Kerim / 📗 Meal / 📝 Tefsir olarak belirtilir.
@@ -97,7 +97,7 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
    git clone https://github.com/mustafakilic13/kuranikerim.git
    ```
 
-3. modern bir tarayıcıda http://localhost:8000 adresini açın.
+3. modern bir tarayıcıda http://localhost:{port numarası} adresini açın.
 
 ---
 
@@ -118,8 +118,8 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 ## 🛠 Teknik Bilgiler
 
 - **Teknoloji:** Vanilla JavaScript (ES6+), HTML5, CSS3 — framework kullanılmamıştır
-- **Tek dosya:** Tüm uygulama mantığı ile html, css, JavaScript `quran-app.html` içindedir
-- **Çevrimdışı:** Kur'anı Kerim ses dosyaları internet gerektirir
+- **Tek dosya:** Tüm uygulama mantığı ile html, css, JavaScript `index.html` içindedir
+- **Çevrimdışı:** Kur'anı Kerim ses dosyaları için internet gerekir
 - **Tarayıcı desteği:** Chrome, Firefox, Safari, Edge (modern sürümler)
 
 ---
