@@ -1,6 +1,6 @@
 <div align="center">
 
-**بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ**
+**بسم الله الرحمن الرحيم**
 
 </div>
 
@@ -42,7 +42,7 @@
 
 ### 🔉 Ses / Dinle
 - **Husary (Mucevved)** ve **Abdulbasit (Mecevved)** okuyucuları
-- Seçili ayetten itibaren sıralı dinleme (**بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ** butonu)
+- Seçili ayetten itibaren sıralı dinleme (**بسم الله الرحمن الرحيم** butonu)
 - Sure, ayet aralığı, tekrar sayısı ile kişiselleştirilmiş dinleme (**Ezber → Dinle** modu)
 
 ### 📚 Meal ve Tefsir
@@ -138,7 +138,7 @@ Bu proje MIT lisansı ile dağıtılmaktadır. Kullanılan içeriklerin (meal, t
 
 <div align="center">
 
-**بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ**
+**بسم الله الرحمن الرحيم**
 
 *"Bu, kendisinde hiçbir şüphe bulunmayan, muttakiler için yol gösterici bir kitaptır."*
 *(Bakara, 2:2)*
