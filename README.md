@@ -97,7 +97,7 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
    git clone https://github.com/mustafakilic13/kuranikerim.git
    ```
 
-3. modern bir tarayıcıda http://localhost:{port numarası} adresini açın.
+3. modern bir tarayıcıda http://localhost:{port_numarası} adresini açın.
 
 ---
 
@@ -120,7 +120,7 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 - **Teknoloji:** Vanilla JavaScript (ES6+), HTML5, CSS3 — framework kullanılmamıştır
 - **Tek dosya:** Tüm uygulama mantığı ile html, css, JavaScript `index.html` içindedir
 - **Çevrimdışı:** Kur'anı Kerim ses dosyaları için internet gerekir
-- **Tarayıcı desteği:** Chrome, Firefox, Safari, Edge (modern sürümler)
+- **Tarayıcı desteği:** Chrome, Firefox, Safari, Edge (güncel sürümler)
 
 ---
 
