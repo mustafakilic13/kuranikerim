@@ -2486,17 +2486,27 @@ function getYazCurrentWordTr() {
     tokenIdx = ti; // son token fallback
   }
 
-  // tokenIdx → words.json'daki non-star sırasıyla eşleştir
-  let nonStarCount = 0;
-  let resultTr = null;
+  // tokenIdx → cardGroups mantığıyla doğru TR bul
+  // * olan TR önceki gruba dahildir (arCount++)
+  const cardGroups = [];
+  let arTokenPos = 0;
   for (let di = 0; di < trWords.length; di++) {
     const tr = trWords[di];
-    if (!tr || tr === '*') continue;
-    if (nonStarCount === tokenIdx) { resultTr = tr; break; }
-    nonStarCount++;
-    resultTr = tr;
+    const isStar = (tr === '*' || !tr);
+    if (isStar && cardGroups.length > 0) {
+      cardGroups[cardGroups.length - 1].arCount++;
+    } else {
+      cardGroups.push({ tr: tr, arCount: 1, startToken: arTokenPos });
+    }
+    arTokenPos++;
   }
-  return resultTr || null;
+  // tokenIdx hangi cardGroup'a ait?
+  for (const g of cardGroups) {
+    if (tokenIdx >= g.startToken && tokenIdx < g.startToken + g.arCount) {
+      return g.tr || null;
+    }
+  }
+  return cardGroups.length ? cardGroups[cardGroups.length - 1].tr : null;
 }
 
 function showYazHint(anchorEl) {
