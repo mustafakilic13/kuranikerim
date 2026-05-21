@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="manifest" href="manifest.json">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <meta name="theme-color" content="#1a3a2a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -25,9 +26,6 @@
   src: url('ScheherazadeNew-Bold.woff2') format('woff2');
   font-weight: 700; font-style: normal; font-display: swap;
 }
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
 :root {
   --bg: #fdf8f0;
   --bg2: #f5ede0;
@@ -133,7 +131,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   display: inline;
   font-family: var(--font-quran);
   font-size: 22px;
-  line-height: 2.0;
+  line-height: 2.3;
   cursor: pointer;
   padding: 1px 3px;
   border-radius: 4px;
@@ -191,6 +189,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   display: none; direction: ltr; text-align: left;
   color: var(--gold); cursor: pointer; font-size: 13px;
   padding: 5px 12px 5px 10px; user-select: none;
+  margin-bottom: 13px;
   font-family: sans-serif; margin: 8px 0 6px;
   border-left: 3px solid var(--gold);
   background: #fffdf5; border-radius: 0 4px 4px 0;
@@ -201,7 +200,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .tafsir-row {
   display: none; direction: ltr; text-align: left;
   background: #fffbf0; border-right: 3px solid var(--gold);
-  padding: 10px 14px; margin: 4px 0; border-radius: 0 6px 6px 0;
+  padding: 10px 14px; margin: 13px 0; border-radius: 0 6px 6px 0;
   font-size: 14px; color: #333; font-family: sans-serif; line-height: 1.8;
   max-height: 60vh; overflow-y: auto;
 }
@@ -458,7 +457,6 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 </style>
 </head>
 <body>
-<!-- Wake Lock taşındı -->
 
 <!-- LOADING -->
 <div id="loading">
