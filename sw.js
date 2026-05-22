@@ -1,7 +1,7 @@
 // sw.js — Service Worker for Kur'an-ı Kerim PWA
 // Statik dosyalar: cache-first | Ses dosyaları: cache-first + arka planda kaydet
 
-const APP_VERSION = 'v1';
+const APP_VERSION = 'v2';
 const STATIC_CACHE = 'kuran-static-' + APP_VERSION;
 const AUDIO_CACHE  = 'kuran-audio-' + APP_VERSION;
 
