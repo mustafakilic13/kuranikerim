@@ -112,6 +112,7 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 | Tefsîru's-Saʿdî (Türkçe) | islamenc.com | [islamenc.com](https://saadi.islamenc.com/tr/browse/tafsir/saadi/) |
 | Arapça font | Scheherazade New | [sil.org](https://software.sil.org/scheherazade/) |
 | İkonlar | Font Awesome | [fontawesome.com](https://fontawesome.com) |
+| Kod | Claude Sonnet 4.6 | [claude.ai](https://claude.ai) |
 
 ---
 
