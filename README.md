@@ -6,63 +6,61 @@
 
 ---
 
-# القرءان الكريم —  Kur'an-ı Kerim  Ezber Web Uygulaması
+# القرءان الكريم — Kur'an-ı Kerim Ezber Web Uygulaması
 
-> Tarayıcıda çalışan, Kur'an-ı Kerim ezber web uygulaması.
+> Tarayıcıda çalışan, PWA destekli Kur'an-ı Kerim okuma ve ezber uygulaması.
 
 🌐 **Canlı Demo:** [mustafakilic13.github.io/kuranikerim](https://mustafakilic13.github.io/kuranikerim/)
+
+---
 
 ## ✨ Özellikler
 
 ### 📖 Metin ve Görüntüleme
 - **Osmani Hattı (Uthmani)** ile tam Kur'an-ı Kerim metni — Scheherazade New fontu
-- Ayetler **düz yazı** formatında, sağa-sola hizalı (justify)
+- Ayetler sağa-sola hizalı (justify) düz yazı formatında
 - Sure başlıkları süslü çerçeve içinde, besmele ortalanmış
 - **Ruku grubu** ayrımı — tek ve çift ruku ayet numaraları farklı renkte (yeşil / mor)
 - Durak işaretleri:
 
-	(**Durmak gerekir   م**)
-	
-	(**Geçmek gerekir   لا**)
-	
-	(**Durmak ve geçmek eşittir   ج**)
-	
-	(**Durmak tercih edilir   قلى**)
-	
-	(**Geçmek tercih edilir   صلى**)
-	
-	(**Kısa bir süre nefes almadan durulur ve okumaya devam edilir  س**)
-	
-	(**İkisinden birisinde durmak tercih edilebilir   ∴ ∴**)
+  (**Durmak gerekir   م**)
+  (**Geçmek gerekir   لا**)
+  (**Durmak ve geçmek eşittir   ج**)
+  (**Durmak tercih edilir   قلى**)
+  (**Geçmek tercih edilir   صلى**)
+  (**Kısa bir süre nefes almadan durulur ve okumaya devam edilir   س**)
+  (**İkisinden birisinde durmak tercih edilebilir   ∴ ∴**)
 
 ### 🧭 Navigasyon
 - **Sure, Sayfa, Cüz** modalları — aktif içerik otomatik vurgulanır ve ortaya kaydırılır
-- Mobilde **parmakla kaydırarak** sayfa geçişi, masaüstünde **fare sürükleyerek**
+- Sure başlığına tıklayınca **sure bilgi modalı** açılır (İniş yeri, Ayet sayısı, Mushaf/Nüzul sırası, Cüz, Hakkında, Nüzul, Konusu, Fazileti — akordion menü)
+- Mobilde parmakla kaydırarak sayfa geçişi, masaüstünde fare sürükleyerek
 - Son kaldığı sayfa `localStorage`'da hatırlanır
 
 ### 🔉 Ses / Dinle
-- **Husary (Mucevved)** ve **Abdulbasit (Mecevved)** okuyucuları
+- **Husary (Mucevved)** ve **Abdulbasit (Mucevved)** okuyucuları
 - Seçili ayetten itibaren sıralı dinleme (**بسم الله الرحمن الرحيم** butonu)
 - Sure, ayet aralığı, tekrar sayısı ile kişiselleştirilmiş dinleme (**Ezber → Dinle** modu)
+- Dinlenen ses dosyaları cihaza kaydedilir — aynı ayet sonraki dinlemelerde **çevrimdışı** çalınır
 
 ### 📚 Meal ve Tefsir
-- **Tefsîru's-Saʿdî** Türkçe meali — ayet numarasına tıklayınca açılır/kapanır
+- **Tefsîru's-Saʿdî meali** — ayet numarasına tıklayınca açılır/kapanır
 - **Kelime meali** — her kelimenin Türkçe karşılığı kart formatında
-- **Tefsîru's-Saʿdî** Türkçe tefsiri — meal altında ayrı bölümde Tefsîru's-Saʿdî metnine tıklayınca açılır.
+- **Tefsîru's-Saʿdî tefsiri** — Arapça tefsir metni + Türkçe tercümesi
 
 ### 🔍 Arama
 - **Arapça** arama → Kur'an metninde
-- **Türkçe** arama → Meal + Tefsîru's-Saʿdî içinde aynı anda
+- **Türkçe** arama → Sa'di meali + Sa'di tefsiri içinde eş zamanlı
 - Eşleşen kelimeler sarı ile vurgulanır
 - Sonuçlar 33'lü gruplar halinde, "Devamı…" ile kademeli yükleme
-- Sonuçlarda kaynak etiketi: 📖 Kur'an-ı Kerim / 📗 Meal / 📝 Tefsir olarak belirtilir.
+- Kaynak etiketi: 📖 Kur'an-ı Kerim / 📗 Meal / 📝 Tefsir
 
 ### 🧠 Ezber Modları
 
 #### 🎧 Dinle Modu
 Kümülatif tekrar yöntemiyle profesyonel ezber:
 - Euzu → Besmele → Ayet × N kez → Besmele + Ayet tekrarı → Sonraki ayet...
-- **Ayet Tekrar** ve **Aynısını Tekrar** sayısı ayarlanabilir
+- Ayet tekrar ve aynısını tekrar sayısı ayarlanabilir
 - Ayet aralığı seçimi, okuyucu seçimi
 
 #### 👁 Oku Modu
@@ -78,7 +76,9 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 - **💡 İpucu** tuşu ile kelimenin Türkçe anlamı gösterilebilir
 - Tüm harfler netleşince ayet okunur
 
-### 📱 Mobil Uyum
+### 📱 Mobil Uyum ve PWA
+- **PWA desteği** — "Ana ekrana ekle" ile uygulama gibi kurulabilir
+- **Çevrimdışı çalışma** — tüm Kur'an metni, meal, tefsir ve fontlar Service Worker ile cache'lenir
 - Mobilde iki parmak ile metin büyütme/küçültme
 - Ekran kapanma engeli (Wake Lock API)
 - Responsive tasarım — tüm ekran boyutlarında kullanılabilir
@@ -90,14 +90,40 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 ### Çevrimiçi Kullanım
 [mustafakilic13.github.io/kuranikerim](https://mustafakilic13.github.io/kuranikerim/) adresini tarayıcınızda açın.
 
+Mobilde **"Ana ekrana ekle"** seçeneği ile uygulamayı cihazınıza kurabilirsiniz. Kurulumdan sonra internet bağlantısı olmadan da kullanılabilir.
+
 ### Yerel Kullanım
 
-1. Bu repository'yi indirin:
+1. Repository'yi indirin:
    ```bash
    git clone https://github.com/mustafakilic13/kuranikerim.git
+   cd kuranikerim
    ```
 
-3. modern bir tarayıcıda http://localhost:{port_numarası} adresini açın.
+2. Yerel bir sunucu başlatın (Service Worker için gerekli):
+   ```bash
+   python -m http.server 8000
+   # veya
+   npx serve .
+   ```
+
+3. Tarayıcınızda `http://localhost:8000` adresini açın.
+
+---
+
+## 📁 Dosya Yapısı
+
+| Dosya | Açıklama | Boyut |
+|-------|----------|-------|
+| `quran-app.html` | Ana uygulama (HTML + CSS + JS) | ~107 KB |
+| `quran-data-full.json` | Kur'an metni + sayfa/cüz/ruku verileri | ~3.5 MB |
+| `meal.json` | Tefsîru's-Saʿdî Türkçe meali | ~950 KB |
+| `tafsir.json` | Tefsîru's-Saʿdî tefsiri (Arapça + Türkçe) | ~11 MB |
+| `words.json` | Kelime meali | ~1 MB |
+| `sura_info.json` | Sure bilgileri (Diyanet) | ~206 KB |
+| `sw.js` | Service Worker (PWA / offline) | — |
+| `manifest.json` | PWA manifest | — |
+| `ScheherazadeNew-*.woff2` | Arapça font (Regular/Medium/Bold) | ~400 KB |
 
 ---
 
@@ -105,11 +131,12 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 
 | İçerik | Kaynak | Bağlantı |
 |--------|--------|----------|
-| Kur'an metni (Osmani Hattı) | Tanzil.net API | [tanzil.net](https://tanzil.net) |
-| Sure bilgileri | Diyanet İşleri Başkanlığı - Kur'an Yolu Tefsiri | [diyanet.gov.tr](https://www.diyanet.gov.tr) |
+| Kur'an metni (Osmani Hattı) | Tanzil.net | [tanzil.net](https://tanzil.net) |
+| Sayfa / Cüz / Ruku verileri | Tanzil.net | [tanzil.net](https://tanzil.net) |
+| Tefsîru's-Saʿdî (meal + tefsir) | islamenc.com | [saadi.islamenc.com](https://saadi.islamenc.com/tr/browse/tafsir/saadi/) |
+| Sure bilgileri | Diyanet İşleri Başkanlığı | [kuran.diyanet.gov.tr](https://kuran.diyanet.gov.tr/Tefsir/) |
 | Ses dosyaları | EveryAyah | [everyayah.com](https://everyayah.com) |
-| Kelime Meali | GTAF | [gtaf.org](https://gtaf.org) |
-| Tefsîru's-Saʿdî (Türkçe) | islamenc.com | [islamenc.com](https://saadi.islamenc.com/tr/browse/tafsir/saadi/) |
+| Kelime meali | GTAF | [gtaf.org](https://gtaf.org) |
 | Arapça font | Scheherazade New | [sil.org](https://software.sil.org/scheherazade/) |
 | İkonlar | Font Awesome | [fontawesome.com](https://fontawesome.com) |
 | Kod | Claude Sonnet 4.6 | [claude.ai](https://claude.ai) |
@@ -119,9 +146,9 @@ Kümülatif tekrar yöntemiyle profesyonel ezber:
 ## 🛠 Teknik Bilgiler
 
 - **Teknoloji:** Vanilla JavaScript (ES6+), HTML5, CSS3 — framework kullanılmamıştır
-- **Tek dosya:** Tüm uygulama mantığı ile html, css, JavaScript `index.html` içindedir
-- **Çevrimdışı:** Kur'anı Kerim ses dosyaları için internet gerekir
-- **Tarayıcı desteği:** Chrome, Firefox, Safari, Edge (güncel sürümler)
+- **Mimari:** Tek HTML dosyası + ayrı JSON veri dosyaları
+- **Offline:** Service Worker ile statik dosyalar ve ses dosyaları cache'lenir
+- **Tarayıcı desteği:** Chrome, Firefox, Safari, Edge (modern sürümler)
 
 ---
 
@@ -150,6 +177,6 @@ Bu proje MIT lisansı ile dağıtılmaktadır. Kullanılan içeriklerin (meal, t
 
 <div align="right">
 
-**وَمَا تَوْفِيقِىٓ إِلَّا بِٱللَّهِ**
+**وَمَا تَوْفِيقِىٓ إِلَّا بِٱللَّهِ**
 
 </div>
